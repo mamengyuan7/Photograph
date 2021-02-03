@@ -5,7 +5,7 @@
     android:background="@color/balck"
     android:orientation="vertical">
 
-   <!-- 自定义标题栏-->
+    <!-- 自定义标题栏-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_titlebar"
         android:layout_width="match_parent"
@@ -18,12 +18,12 @@
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
-            android:text="设置"
+            android:text="个人资料"
             android:textColor="#ffffffff"
             android:textSize="20dp" />
 
         <ImageView
-            android:id="@+id/setting_back"
+            android:id="@+id/setting"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -32,9 +32,9 @@
             android:layout_marginLeft="5dp" />
     </RelativeLayout>
 
-    <!--个人资料-->
+    <!--设置头像-->
     <LinearLayout
-        android:id="@+id/personal_data"
+        android:id="@+id/setphoto"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个人资料"
+            android:text="设置头像"
             android:textSize="14dp"
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"
@@ -59,9 +59,9 @@
         android:layout_marginLeft="15dp"
         android:background="@color/bg_press"/>
 
-    <!--图片质量-->
+    <!--设置背景图-->
     <LinearLayout
-        android:id="@+id/image_quality"
+        android:id="@+id/set_background"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
@@ -69,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="图片质量"
+            android:text="设置背景图"
             android:textSize="14dp"
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"
@@ -86,9 +86,9 @@
         android:layout_marginLeft="15dp"
         android:background="@color/bg_press"/>
 
-   <!-- 账号设置-->
+    <!-- 设置昵称-->
     <LinearLayout
-        android:id="@+id/account_setup"
+        android:id="@+id/set_nickname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账号设置"
+            android:text="设置昵称"
             android:textSize="14dp"
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"
@@ -112,12 +112,30 @@
         android:layout_height="0.5dp"
         android:layout_marginLeft="15dp"
         android:background="@color/bg_press"/>
-    <Button
-        android:id="@+id/logout"
+    <!--设置个签-->
+    <LinearLayout
+        android:id="@+id/set_signin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="退出登录"
-        android:textSize="@dimen/font_16"
-        android:background="@color/balck"
-        android:textColor="@color/red" />
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置昵称"
+            android:textSize="14dp"
+            android:layout_marginLeft="18dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:src="@drawable/right" />
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/bg_press"/>
 </LinearLayout>

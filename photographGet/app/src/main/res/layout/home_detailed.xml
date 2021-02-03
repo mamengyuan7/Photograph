@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/balck">
+
+    <RelativeLayout
+        android:id="@+id/re_head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/back"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作品详情"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="26dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/re_writer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/re_head"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <net.onest.photographget.CircleHeadView
+            android:id="@+id/de_touxiang"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <TextView
+            android:id="@+id/de_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可乐加冰"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/de_touxiang"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"/>
+        
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/re_writer"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/de_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开往雪国的列车"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/de_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/de_title"
+            android:text="dshakjfdn "
+            android:textSize="16dp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+</RelativeLayout>

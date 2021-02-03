@@ -1,16 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/balck"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment" >
 
-    <TextView
-        android:id="@+id/content_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:visibility="visible"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            tools:srcCompat="@android:drawable/btn_star_big_on" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/home_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="活动"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/home_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="热度"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/home_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="地区"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="visible"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_below="@id/linear_top"
+        android:id="@+id/scrollbar"
+        android:scaleType="matrix"
+        android:src="@drawable/scrollbar"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        android:text="首页" />
-</FrameLayout>
+        android:layout_below="@id/scrollbar">
+    </androidx.viewpager.widget.ViewPager>
+
+
+</RelativeLayout>
+
