@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="red">#d71345</color>
     <!-- 常用颜色值 -->
     <!-- 下拉刷新时，颜色值 -->
     <color name="swiperefresh_color4">#ffaa66cc</color>

@@ -1,5 +1,6 @@
 package net.onest.photographget;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.sip.SipSession;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +23,7 @@ public class SettingFragment extends Fragment {
     private static final String ARG_SHOW_TEXT = "text";
     View view;
     private String mContentText;
+    private ImageView setting;
     Toolbar toolbar;
     AppBarLayout mAppBarLayout;//标题部分
     CollapsingToolbarLayout mCollapsingToolbarLayout;//折叠式标题栏
@@ -47,6 +50,14 @@ public class SettingFragment extends Fragment {
         Log.e("test", "初始化设置页");
         view = inflater.inflate(R.layout.fragment_setting, container, false);
         toolbar=view.findViewById(R.id.toolbar);
+        setting=view.findViewById(R.id.setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(view.getContext(),SettingDetail.class);
+                startActivity(intent);
+            }
+        });
         mAppBarLayout = view.findViewById(R.id.appbar_layout);
         mCollapsingToolbarLayout=view.findViewById(R.id.collapsing_toolbar_layout);
         //标题名称
@@ -58,7 +69,6 @@ public class SettingFragment extends Fragment {
         /*设置标题是否显示*/
         mCollapsingToolbarLayout.setTitleEnabled(true);
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
-
         return view;
     }
 
