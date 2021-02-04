@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/balck"
     android:orientation="vertical">
-
    <!-- 自定义标题栏-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_titlebar"
@@ -86,7 +85,7 @@
         android:layout_marginLeft="15dp"
         android:background="@color/bg_press"/>
 
-   <!-- 账号设置-->
+   <!-- 关于本产品-->
     <LinearLayout
         android:id="@+id/account_setup"
         android:layout_width="match_parent"
@@ -96,7 +95,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账号设置"
+            android:text="关于本产品"
             android:textSize="14dp"
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"

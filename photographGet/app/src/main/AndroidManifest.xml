@@ -19,6 +19,8 @@
         <activity android:name=".SignActivity"></activity>
         <activity android:name=".SettingDetail"></activity>
         <activity android:name=".DetailedActivity"></activity>
+        <activity android:name=".SettingFragment"></activity>
+        <activity android:name=".SettingPersonal"></activity>
     </application>
 
 </manifest>

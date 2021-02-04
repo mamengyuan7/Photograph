@@ -43,16 +43,7 @@
                     android:id="@+id/layout_titlebar"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
-                    <ImageView
-                        android:id="@+id/back_setting"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentLeft="true"
-                        android:src="@drawable/back"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="50dp"/>
                     <TextView
-
                         android:id="@+id/text_title"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -80,7 +71,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"/>
                 </RelativeLayout>
-
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -155,7 +145,8 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+            </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
