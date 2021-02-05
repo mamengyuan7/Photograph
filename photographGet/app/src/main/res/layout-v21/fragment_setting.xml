@@ -76,7 +76,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
-        android:layout_height="800dp"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -86,6 +86,7 @@
             android:orientation="vertical"
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
+            android:background="@color/balck"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,16 +142,17 @@
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
+                app:tabBackground="@color/balck"
+                app:tabTextColor="@color/bg_press_material"
+                app:tabSelectedTextColor="@color/white"
                 style="@style/MyCustomTabLayout" />
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="300dp" >
             </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
