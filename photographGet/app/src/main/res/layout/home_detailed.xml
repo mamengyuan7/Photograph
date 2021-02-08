@@ -31,10 +31,11 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp">
 
-        <net.onest.photographget.CircleHeadView
+        <ImageView
             android:id="@+id/de_touxiang"
             android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:src="@drawable/touxiang"/>
         <TextView
             android:id="@+id/de_nickname"
             android:layout_width="wrap_content"
@@ -47,23 +48,17 @@
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>
-    <ScrollView
-        android:id="@+id/de_sc"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_photos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
-        <net.onest.photographget.MultiImageView
-            android:id="@+id/patient_detail_table_pictures"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/re_writer"/>
-    </ScrollView>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/de_sc"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/balck">
@@ -91,6 +86,7 @@
             android:layout_below="@+id/de_title"
             android:text="dshakjfdn "
             android:textSize="16dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/list_item_background_pressed"/>
 
     </RelativeLayout>
