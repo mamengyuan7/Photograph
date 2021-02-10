@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.onest.photographget">
+    package="net.onest.photographget"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
     <!-- if you want to load images from the internet -->
@@ -17,7 +22,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:replace="android:allowBackup">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +34,8 @@
         <activity android:name=".SignActivity"></activity>
         <activity android:name=".SettingDetail"></activity>
         <activity android:name=".DetailedActivity"></activity>
+        <activity android:name=".SettingFragment"></activity>
+        <activity android:name=".SettingPersonal"></activity>
     </application>
 
 </manifest>

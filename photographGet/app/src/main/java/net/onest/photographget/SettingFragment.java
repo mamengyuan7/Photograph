@@ -16,8 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 public class SettingFragment extends Fragment {
     private static final String ARG_SHOW_TEXT = "text";
@@ -26,6 +32,13 @@ public class SettingFragment extends Fragment {
     private ImageView setting;
     Toolbar toolbar;
     AppBarLayout mAppBarLayout;//标题部分
+    private LayoutInflater mInflater;
+    private TabLayout sliding_tabs;//小标题
+    private ViewPager viewpager;//小页面
+    private View setting_protfolio;//个人作品
+    private View setting_collection;//个人收藏
+    private List<String> mTitleList = new ArrayList<>();
+    private List<View> mViewList = new ArrayList<>();
     CollapsingToolbarLayout mCollapsingToolbarLayout;//折叠式标题栏
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,8 +62,7 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.e("test", "初始化设置页");
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-        toolbar=view.findViewById(R.id.toolbar);
-        setting=view.findViewById(R.id.setting);
+        init();
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,8 +70,6 @@ public class SettingFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        mAppBarLayout = view.findViewById(R.id.appbar_layout);
-        mCollapsingToolbarLayout=view.findViewById(R.id.collapsing_toolbar_layout);
         //标题名称
         mCollapsingToolbarLayout.setTitle("可乐加冰");
         Log.e("pp","aaaaa");
@@ -71,7 +81,34 @@ public class SettingFragment extends Fragment {
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         return view;
     }
+    private void init() {
+        sliding_tabs=view.findViewById(R.id.sliding_tabs);
+        viewpager=view.findViewById(R.id.viewpager);
+        mInflater=LayoutInflater.from(getContext());
+        setting_protfolio=mInflater.inflate(R.layout.setting_protfolio,null);
+        setting_collection=mInflater.inflate(R.layout.setting_collection,null);
+        if(mViewList.size()==0&&mTitleList.size()==0){
+           /* 判断语句*/
+            Log.e("pandaun","panduan");
+            mViewList.add(setting_protfolio);
+            mViewList.add(setting_collection);
+            mTitleList.add("作品");
+            mTitleList.add("收藏");
+        }
+        Log.e("panduan","11");
+        sliding_tabs.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
+        sliding_tabs.addTab(sliding_tabs.newTab().setText(mTitleList.get(0)));//添加选项卡
+        sliding_tabs.addTab(sliding_tabs.newTab().setText(mTitleList.get(1)));//添加选项卡
+        ViewPagerAdapter mAdapter = new ViewPagerAdapter(mViewList,mTitleList);
+        viewpager.setAdapter(mAdapter);//给ViewPager设置适配器
+        sliding_tabs.setupWithViewPager(viewpager);  //将TabLayout和ViewPager关联起来。
+        sliding_tabs.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器
 
+        toolbar=view.findViewById(R.id.toolbar);
+        setting=view.findViewById(R.id.setting);
+        mAppBarLayout = view.findViewById(R.id.appbar_layout);
+        mCollapsingToolbarLayout=view.findViewById(R.id.collapsing_toolbar_layout);
+    }
     private int changeAlpha(int color, float fraction) {
         int red = Color.red(color);
         int green = Color.green(color);
