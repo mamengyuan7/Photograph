@@ -3,6 +3,7 @@ package net.onest.photographget;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,19 +13,49 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIResHelper;
+import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
+
+import net.onest.photographget.entity.User;
+import net.onest.photographget.utils.DividerGridItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import static androidx.recyclerview.widget.OrientationHelper.*;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener,OnBannerListener {
     View view;
+
+    private Banner mBanner;
+  //////分类
+    private QMUITabSegment tabSegment;
+    private ViewPager viewpager_showphoto;
+    private Photo_adapter adapter;
+    private   List<User> users=new ArrayList<>();
 
     private Context context;
     private ViewPager viewPager;
@@ -44,19 +75,72 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     //一倍滚动量
     private int one;
 
-    ////////////////轮播图
-
-
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        initView();
 
-        return view;
+        context=getContext();
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        System.out.println("这是viewpage对象："+viewPager);
+        initView();
+         return view;
     }
+    private void lunbo() {
+
+        System.out.println("这是banner对象："+mBanner);
+        //图片资源
+        int[] imageResourceID = new int[]{R.mipmap.one_photo,
+                R.mipmap.two_photo,
+                R.mipmap.three_photo,
+                R.mipmap.four_photo};
+        List<Integer> imgeList = new ArrayList<>();
+        //轮播标题
+        String[] mtitle = new String[]{"图片1", "图片2", "图片3", "图片4"};
+        List<String> titleList = new ArrayList<>();
+
+        for (int i = 0; i < imageResourceID.length; i++) {
+            imgeList.add(imageResourceID[i]);//把图片资源循环放入list里面
+            titleList.add(mtitle[i]);//把标题循环设置进列表里面
+            //设置图片加载器，通过Glide加载图片
+            mBanner.setImageLoader(new ImageLoader() {
+                @Override
+                public void displayImage(Context context, Object path, ImageView imageView) {
+                    Glide.with(getActivity()).load(path).into(imageView);
+                }
+            });
+            //设置轮播的动画效果,里面有很多种特效,可以到GitHub上查看文档。
+            mBanner.setBannerAnimation(Transformer.Default);
+            mBanner.setImages(imgeList);//设置图片资源
+            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);//设置banner显示样式（带标题的样式）
+            mBanner.setBannerTitles(titleList); //设置标题集合（当banner样式有显示title时）
+            //设置指示器位置（即图片下面的那个小圆点）
+            mBanner.setIndicatorGravity(BannerConfig.CENTER);
+            mBanner.setDelayTime(2000);//设置轮播时间3秒切换下一图
+            mBanner.setOnBannerListener( this);//设置监听
+            mBanner.start();//开始进行banner渲染
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBanner.startAutoPlay();//开始轮播
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mBanner.stopAutoPlay();//结束轮播
+    }
+
+    //对轮播图设置点击监听事件
+    @Override
+    public void OnBannerClick(int position) {
+        Toast.makeText(getActivity(), "你点击了第" + (position + 1) + "张轮播图", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void initView() {
         //查找布局文件用LayoutInflater.inflate
@@ -66,6 +150,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View view2 = inflater.inflate(R.layout.home_1,null);
         View view3 = inflater.inflate(R.layout.home_2,null);
         View view4 = inflater.inflate(R.layout.home_3,null);
+
 
         logoLayout=view.findViewById(R.id.img_logo);
         home_1_Layout=view.findViewById(R.id.home_1);
@@ -134,7 +219,131 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //将滚动条的初始位置设置成与左边界间隔一个offset
         scrollbar.setImageMatrix(matrix);
 
+       mBanner=view1.findViewById(R.id.banner);
+       lunbo();
 
+
+       tabSegment=view1.findViewById(R.id.tabSegment);
+       viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
+        initData();
+
+
+       photo_kinds();
+
+    }
+
+    private void initData() {
+        User user1 = new User();
+        user1.setImg_up("111");
+        user1.setName("名字1");
+
+        User user2 = new User();
+        user2.setImg_up("222");
+        user2.setName("名字2");
+
+        User user3 = new User();
+        user3.setImg_up("333");
+        user3.setName("名字3");
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+    }
+
+    private void photo_kinds() {
+        viewpager_showphoto.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return view==object;
+            }
+            @NonNull
+            @Override
+            public Object instantiateItem(@NonNull final ViewGroup container, int position) {
+                RecyclerView recyclerView = new RecyclerView(getContext());
+if (position==0) {
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+    recyclerView.setLayoutManager(gridLayoutManager);
+    //设置Adapter
+    //teachers=initData();
+    adapter = new Photo_adapter(users, R.layout.kinds_item, context);
+    recyclerView.setAdapter(adapter);
+    //设置分隔线
+    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+}else{
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+    recyclerView.setLayoutManager(gridLayoutManager);
+    //设置Adapter
+    //teachers=initData();
+
+    adapter = new Photo_adapter(users, R.layout.kinds_item, context);
+    recyclerView.setAdapter(adapter);
+    //设置分隔线
+    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+
+}
+                container.addView(recyclerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                return recyclerView;
+
+            }
+            @Override
+            public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                container.removeView((View) object);
+            }
+
+        });
+
+        viewpager_showphoto .setCurrentItem(0, false);
+        tabSegment.addTab(new QMUITabSegment.Tab("1"));
+        tabSegment.addTab(new QMUITabSegment.Tab("2"));
+        tabSegment.addTab(new QMUITabSegment.Tab("3"));
+        tabSegment.addTab(new QMUITabSegment.Tab("4"));
+//        tabSegment.addTab(new QMUITabSegment.Tab("5"));
+
+
+        tabSegment.setupWithViewPager(viewpager_showphoto, false);
+        tabSegment.setMode(QMUITabSegment.MODE_FIXED);
+
+//        final int normalColor = QMUIResHelper.getAttrColor(getContext(), R.attr.);
+//        final int selectColor = QMUIResHelper.getAttrColor(getContext(), R.attr.qmui_config_color_blue);
+//        tabSegment.setDefaultSelectedColor(selectColor);
+//        tabSegment.setDefaultNormalColor(normalColor);
+
+        int space = QMUIDisplayHelper.dp2px(getContext(), 16);
+        tabSegment.setItemSpaceInScrollMode(space);
+        tabSegment.arrowScroll(1);
+        tabSegment.canScrollHorizontally(1);
+        tabSegment.setHasIndicator(true);
+
+        tabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
+            @Override
+            public void onTabReselected(int index) {//当某个 Tab 处于被选中状态下再次被点击时会触发
+                tabSegment.hideSignCountView(index);//根据 index 在对应的 Tab 上隐藏红点
+            }
+
+            @Override
+            public void onTabSelected(int index) {
+               // tabSegment.getTab(index).setTextColor(normalColor,selectColor);
+
+
+
+            }
+
+            @Override
+            public void onTabUnselected(int index) {//当某个 Tab 被取消选中时会触发
+//                Log.i("bqt", "【onTabUnselected】" + index);
+            }
+
+            @Override
+            public void onDoubleTap(int index) {//当某个 Tab 被双击时会触发
+//                Log.i("bqt", "【onDoubleTap】" + index);
+            }
+        });
     }
 
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {

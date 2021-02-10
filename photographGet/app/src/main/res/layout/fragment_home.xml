@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/balck"
+    android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment" >
@@ -74,12 +74,14 @@
         android:id="@+id/scrollbar"
         android:scaleType="matrix"
         android:src="@drawable/scrollbar"/>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/scrollbar">
     </androidx.viewpager.widget.ViewPager>
+
 
 
 </RelativeLayout>

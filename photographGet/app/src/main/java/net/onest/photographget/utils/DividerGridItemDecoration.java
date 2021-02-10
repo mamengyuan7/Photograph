@@ -1,4 +1,4 @@
-package com.example.kinds.utils;
+package net.onest.photographget.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -7,6 +7,15 @@ public class User {
     private String head_portrait;
     private String background;
     private String pers_signature;
+    private String img_up;
+
+    public String getImg_up() {
+        return img_up;
+    }
+
+    public void setImg_up(String img_up) {
+        this.img_up = img_up;
+    }
 
     public int getId() {
         return id;
