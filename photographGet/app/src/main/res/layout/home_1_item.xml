@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@drawable/home_1_item_back"
+        android:id="@+id/img_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ImageView>
+
+    <TextView
+        android:id="@+id/tv_topic"
+        android:layout_alignParentBottom="true"
+        android:textSize="30dp"
+        android:textColor="@color/colorAccent"
+        android:text="新春摄影活动"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
+
+</RelativeLayout>

@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.onest.photographget"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
-    <!-- if you want to load images from the internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- if you want to load images from a file OR from the internet -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
+    xmlns:tools="http://schemas.android.com/tools"
+    package="net.onest.photographget">
 
     <application
         android:allowBackup="true"
@@ -24,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignActivity"></activity>
-        <activity android:name=".SettingDetail"></activity>
-        <activity android:name=".DetailedActivity"></activity>
-        <activity android:name=".SettingFragment"></activity>
-        <activity android:name=".SettingPersonal"></activity>
+        <activity android:name="net.onest.photographget.Test_intent"></activity>
+        <activity android:name=".SignActivity" />
+        <activity android:name=".SettingDetail" />
+        <activity android:name=".DetailedActivity" />
+        <activity android:name=".SettingFragment" />
+        <activity android:name=".SettingPersonal" />
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

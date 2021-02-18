@@ -3,7 +3,6 @@ package net.onest.photographget;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +29,11 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import net.onest.photographget.entity.Huodong;
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
 
+import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,16 +42,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import static androidx.recyclerview.widget.OrientationHelper.*;
-
 public class HomeFragment extends Fragment implements View.OnClickListener,OnBannerListener {
     View view;
+    View view1;
 
     private Banner mBanner;
   //////分类
@@ -75,18 +75,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     //一倍滚动量
     private int one;
 
+    private ListView listView_h;
+    private Huodong_adpter aaa;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        view1=inflater.inflate(R.layout.home_1,container,false);
 
         context=getContext();
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+         //listView_h=view1.findViewById(R.id.listview_item);
+
         System.out.println("这是viewpage对象："+viewPager);
         initView();
+       // Huodong_init();
+
          return view;
     }
+
+    private void Huodong_init() {
+
+        List<Huodong> huodongs=new ArrayList<>();
+
+        Huodong h1=new Huodong();
+        h1.setPic("111");
+        h1.setTopic("111");
+//
+        Huodong h2=new Huodong();
+        h2.setPic("222");
+        h2.setTopic("222");
+//
+        huodongs.add(h1);
+        huodongs.add(h2);
+//
+         aaa=new Huodong_adpter(huodongs,R.layout.home_1_item,getContext());
+         System.out.println("这是aaa："+aaa);
+         listView_h.setAdapter(aaa);
+    }
+
+
     private void lunbo() {
 
         System.out.println("这是banner对象："+mBanner);
@@ -263,7 +293,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             @NonNull
             @Override
             public Object instantiateItem(@NonNull final ViewGroup container, int position) {
-                RecyclerView recyclerView = new RecyclerView(getContext());
+                RecyclerView recyclerView = new RecyclerView(getContext());  
 if (position==0) {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
     gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -298,27 +328,29 @@ if (position==0) {
 
         });
 
+
+        final int normalColor = QMUIResHelper.getAttrColor(getContext(), R.attr.qmui_config_color_blue);
+        tabSegment.setDefaultNormalColor(normalColor);
+
         viewpager_showphoto .setCurrentItem(0, false);
         tabSegment.addTab(new QMUITabSegment.Tab("1"));
         tabSegment.addTab(new QMUITabSegment.Tab("2"));
         tabSegment.addTab(new QMUITabSegment.Tab("3"));
         tabSegment.addTab(new QMUITabSegment.Tab("4"));
-//        tabSegment.addTab(new QMUITabSegment.Tab("5"));
 
+        tabSegment.getTab(0).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
+        tabSegment.getTab(1).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
+        tabSegment.getTab(2).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
+        tabSegment.getTab(3).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
 
         tabSegment.setupWithViewPager(viewpager_showphoto, false);
         tabSegment.setMode(QMUITabSegment.MODE_FIXED);
-
-//        final int normalColor = QMUIResHelper.getAttrColor(getContext(), R.attr.);
-//        final int selectColor = QMUIResHelper.getAttrColor(getContext(), R.attr.qmui_config_color_blue);
-//        tabSegment.setDefaultSelectedColor(selectColor);
-//        tabSegment.setDefaultNormalColor(normalColor);
 
         int space = QMUIDisplayHelper.dp2px(getContext(), 16);
         tabSegment.setItemSpaceInScrollMode(space);
         tabSegment.arrowScroll(1);
         tabSegment.canScrollHorizontally(1);
-        tabSegment.setHasIndicator(true);
+        tabSegment.setHasIndicator(false);
 
         tabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
             @Override

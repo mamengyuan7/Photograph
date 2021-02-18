@@ -1,13 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:background="@color/account_pressed_true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/newbra"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30dp"
-        android:text="第二页面"></TextView>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/qmui_icon_tip_new"
+            tools:srcCompat="@drawable/qmui_icon_tip_new"></ImageView>
+        <TextView
+            android:textColor="@color/white"
+            android:text="新人榜"
+            android:layout_gravity="center_vertical"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+<LinearLayout
+    android:orientation="vertical"
+
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/n1"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </ImageView>
+        <ImageView
+            android:layout_margin="5dp"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+        </ImageView>
+        <TextView
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="楚天"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/n2"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </ImageView>
+        <ImageView
+            android:layout_margin="5dp"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+        </ImageView>
+        <TextView
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="楚天"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/n3"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </ImageView>
+        <ImageView
+            android:layout_margin="5dp"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+        </ImageView>
+        <TextView
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="楚天"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
+
 
 </LinearLayout>

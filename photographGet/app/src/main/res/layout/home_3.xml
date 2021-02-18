@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/Blue"
+   android:background="@color/cardview_dark_background"
+    android:orientation="vertical"
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <LinearLayout
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30dp"
-        android:text="第三页面"></TextView>
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="摄影后期必备技巧"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+        </ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="摄影后期必备技巧"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+        </ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="摄影后期必备技巧"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_1_item_back"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+        </ImageView>
+    </LinearLayout>
+
 
 </LinearLayout>

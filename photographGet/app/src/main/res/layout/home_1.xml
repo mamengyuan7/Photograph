@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/colorAccent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:id="@+id/liner"
+    android:scrollY="@dimen/cardview_default_elevation"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30dp"
-        android:text="第一页面"></TextView>
+        android:layout_height="200dp">
+        <ImageView
+            android:background="@drawable/home_1_item_back"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+        <TextView
+            android:textSize="30dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:text="新春摄影活动"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/beijing"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:textSize="30dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:text="新春摄影活动"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/home_1_item_back"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:textSize="30dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:text="新春摄影活动"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+    </RelativeLayout>
 
 </LinearLayout>

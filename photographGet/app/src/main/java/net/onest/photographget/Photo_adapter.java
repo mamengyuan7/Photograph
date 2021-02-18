@@ -1,15 +1,14 @@
 package net.onest.photographget;
 
 import android.content.Context;
+
+
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import net.onest.photographget.entity.User;
 
@@ -18,6 +17,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
     private int  userId;
@@ -39,7 +40,7 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
     private List<User> users=new ArrayList<>();
     private int itemLayoutId;
     private Context context;
-    private CustomListener listener;
+    private CustomListener listener=new CustomListener();
 
     public Photo_adapter(List<User> users, int itemLayoutId, Context context) {
         this.users =users;
@@ -63,6 +64,15 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
             //点击事件,点击图片，姓名，跳转到详情页面
             viewHolder.img.setOnClickListener(listener);
             viewHolder.username.setOnClickListener(listener);
+            viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent();
+                    intent.setClass(context,Test_intent.class);
+
+                    context.startActivity(intent);
+                }
+            });
     }
 
 
@@ -76,10 +86,8 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
         @Override
         public void onClick(View v) {
             Intent intent=new Intent();
-            intent.setClass(context,MainActivity.class);
+            intent.setClass(context,Test_intent.class);
 
-            Log.i("传的id",s);
-            intent.putExtra("userId",userId);
             context.startActivity(intent);
         }
     }
