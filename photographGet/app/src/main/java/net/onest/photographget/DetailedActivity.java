@@ -1,6 +1,7 @@
 package net.onest.photographget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -42,7 +43,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DetailedActivity extends BaseActivity implements View.OnClickListener {
+public class DetailedActivity extends BaseActivity {
     private MultiImageView multiImageView;
     private GoodView mGoodView;
 
@@ -132,8 +133,18 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
                     mGoodView.show(viewHolder.getConvertView());
                 }
             });
+            //EXIF
+            viewHolder.setOnClickListener(R.id.exif,new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Log.e("iiii","66666666666666666666666666666666666666666666666666666");
+                    Intent intent = new Intent(DetailedActivity.this,SignActivity.class);
+                    startActivity(intent);
+
+                }
+            });
             //评论
-            viewHolder.setOnClickListener(R.id.comment, new View.OnClickListener() {
+            /*viewHolder.setOnClickListener(R.id.comment, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.e("aaaaa","55555555555555555555555555555555555555555555555555555");
@@ -149,7 +160,7 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
                     //rl_comment = (RelativeLayout) viewHolder.getConvertView();
                     //rl_comment.setVisibility(View.VISIBLE);
                 }
-            });
+            });*/
 
             final RecyclerView rvPhotos = viewHolder.getView(R.id.rv_photos);
             // 重置 divider
@@ -247,7 +258,7 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
         mGoodView.setTextInfo("收藏成功", Color.parseColor("#f66467"), 12);
         mGoodView.show(view);
     }
-    private void initView1() {
+    /*private void initView1() {
 
         // 初始化评论列表
         comment_list = (ListView) findViewById(R.id.comment_list);
@@ -267,19 +278,19 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
         rl_comment = (RelativeLayout) findViewById(R.id.rl_comment);
 
         setListener();
-    }
+    }*/
 
     /**
      * 设置监听
      */
-    public void setListener(){
+    /*public void setListener(){
         comment.setOnClickListener(this);
 
         hide_down.setOnClickListener(this);
         comment_send.setOnClickListener(this);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.comment:
@@ -306,9 +317,9 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    /**
+    *//**
      * 发送评论
-     */
+     *//*
     public void sendComment(){
         if(comment_content.getText().toString().equals("")){
             Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
@@ -323,7 +334,7 @@ public class DetailedActivity extends BaseActivity implements View.OnClickListen
 
             Toast.makeText(getApplicationContext(), "评论成功！", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
