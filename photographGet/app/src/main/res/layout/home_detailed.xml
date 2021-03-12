@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/balck"
+    android:background="@color/cardview_dark_background"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/re_head"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="#333333">
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -50,11 +51,13 @@
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20sp">
             <net.onest.photographget.MultiImageView
                 android:id="@+id/multiImage"
                 android:layout_width="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/cardview_dark_background"
                 android:layout_height="wrap_content">
             </net.onest.photographget.MultiImageView>
     </ScrollView>
@@ -64,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/balck">
+        android:background="@color/cardview_dark_background">
         <TextView
             android:id="@+id/de_title"
             android:layout_width="wrap_content"
@@ -97,7 +100,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/balck">
+        android:background="@color/cardview_dark_background">
 
         <ListView
             android:id="@+id/comment_list"
@@ -105,7 +108,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="50dp"
-            android:background="@color/balck"/>
+            android:background="@color/cardview_dark_background"/>
 
         <LinearLayout
             android:id="@+id/rl_enroll"

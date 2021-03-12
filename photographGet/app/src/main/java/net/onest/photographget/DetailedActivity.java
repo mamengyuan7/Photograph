@@ -1,9 +1,11 @@
 package net.onest.photographget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -29,21 +31,17 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DetailedActivity extends AppCompatActivity implements View.OnClickListener {
     private MultiImageView multiImageView;
     private GoodView mGoodView;
-
     private ImageView comment;
     private TextView hide_down;
     private EditText comment_content;
     private Button comment_send;
-
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
-
     private ListView comment_list;
     private List<Comment> data;
     private AdapterComment adapterComment;
-
-
     private List<String> imgs = new ArrayList<>();
+    private MultiImageView.OnItemClickListener mOnItemClickListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,10 +62,17 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         imgs.add("http://pic1.bbzhi.com/fengjingbizhi/ganshoudaziran-renyuziranzhutisheying/nature_sz197_people_nature_01_8780_11.jpg");
 
         multiImageView.setList(imgs);
-            //点赞功能
+        multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.e("是谁？",""+position);
+                Intent intent = new Intent(DetailedActivity.this,EXIFActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点赞功能
         mGoodView = new GoodView(this);
-            initView1();
-
+        initView1();
         }
     //点赞点击事件
     public void collection(View view) {

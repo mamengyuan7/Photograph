@@ -6,16 +6,6 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-
-
-    signingConfigs {
-        config {
-            storeFile file('E:\\Java\\photokey.jks')
-            storePassword '123456'
-            keyAlias = 'photokey'
-            keyPassword '123456'
-        }
-    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -37,6 +27,12 @@ android {
             keyAlias "vans"
             keyPassword "123456"
             storePassword "123456"
+        }
+        key {
+            storeFile file('E:\\Java\\pkey.jks')
+            storePassword '123456'
+            keyAlias = 'pkey'
+            keyPassword '123456'
         }
     }
     buildTypes {
