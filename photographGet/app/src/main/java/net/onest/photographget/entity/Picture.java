@@ -12,9 +12,24 @@ public class Picture {
     private String camera_lens;
     private String focal_length;
     private String iso;
-    private Date time;
+    private String time;
     private double latitude;
     private double longitude;
+
+    public Picture(int id, String img_address, int user_id, String brand, String type, String ptype, String camera_lens, String focal_length, String iso, String time, double latitude, double longitude) {
+        this.id = id;
+        this.img_address = img_address;
+        this.user_id = user_id;
+        this.brand = brand;
+        this.type = type;
+        this.ptype = ptype;
+        this.camera_lens = camera_lens;
+        this.focal_length = focal_length;
+        this.iso = iso;
+        this.time = time;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public int getId() {
         return id;
@@ -88,11 +103,11 @@ public class Picture {
         this.iso = iso;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

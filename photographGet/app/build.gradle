@@ -1,6 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
+    signingConfigs {
+        config {
+            storeFile file('E:\\Java\\photokey.jks')
+            storePassword '123456'
+            keyAlias = 'photokey'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -84,9 +99,8 @@ dependencies {
     implementation libPicasso
     implementation libImmersionbar
     debugImplementation libLeakcanary
-    implementation project(path: ':Transferee')
-    implementation project(path: ':GlideImageLoader')
     implementation 'com.android.support:multidex:1.0.3'
+    implementation files('lib\\BaiduLBS_Android.jar')
 
 
 }

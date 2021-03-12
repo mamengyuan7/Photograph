@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.sign_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DetailedActivity.class));
+                startActivity(new Intent(MainActivity.this, SignActivity.class));
             }
         });
     }
