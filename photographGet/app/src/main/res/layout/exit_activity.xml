@@ -106,8 +106,8 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_marginLeft="20sp"/>
-    <!--<com.baidu.mapapi.map.MapView
+    <com.baidu.mapapi.map.MapView
          android:id="@+id/mapView"
          android:layout_width="match_parent"
-         android:layout_height="200dp"/>-->
+         android:layout_height="200dp"/>
 </LinearLayout>

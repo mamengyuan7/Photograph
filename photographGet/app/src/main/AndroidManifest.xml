@@ -45,7 +45,7 @@
         <activity android:name=".EXIFActivity"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="qvXOwNPpLRVlqAqkSvjia8SOG5dQ61S6" />
+            android:value="kjB4GHHznVrl9RVR5EG8S8tsMEFagt8T" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

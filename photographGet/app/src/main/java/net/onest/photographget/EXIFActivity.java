@@ -53,12 +53,11 @@ public class EXIFActivity extends AppCompatActivity {
     private LocationClientOption locationClientOption;
     private LatLng point;
 
-//F0:BE:B5:FF:B5:33:01:08:26:C1:5C:96:DE:2A:D5:52:84:95:22:D8
     //FB:A3:65:74:8F:77:0E:26:87:40:05:D3:E3:DA:00:B0:55:18:F6:DE
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.exit_activity);
         initView();
         pic = new Picture(1,"E://image//万达广场.jpg",
@@ -76,16 +75,16 @@ public class EXIFActivity extends AppCompatActivity {
         latitude.setText("经度："+pic.getLatitude());
         longitude.setText("纬度："+pic.getLongitude());
 
-        /*initializeMap();
+        initializeMap();
         hideLogo();
         zoomLevelOp();
         showLocOnMap(38.026187152514,114.536750123456);
         String a = getAddress(38.026187,114.536750);
-        aaa.setText(a);*/
+        aaa.setText(a);
     }
 
     private void showLocOnMap(double lat, double lng) {
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.dingweii);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.location);
         setMarkPoint(lat,lng);
         MyLocationConfiguration config = new MyLocationConfiguration(
                 MyLocationConfiguration.LocationMode.COMPASS,
@@ -107,7 +106,7 @@ public class EXIFActivity extends AppCompatActivity {
         point = new LatLng(lat, lng);
         //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.mipmap.dingweii);
+                .fromResource(R.mipmap.location);
         //构建MarkerOption，用于在地图上添加Marker
         OverlayOptions option = new MarkerOptions()
                 .position(point)
@@ -166,9 +165,9 @@ public class EXIFActivity extends AppCompatActivity {
         latitude = (TextView) findViewById(R.id.exif_latitude);
         longitude = (TextView) findViewById(R.id.exif_longitude);
         aaa = (TextView)findViewById(R.id.aaa);
-        //mapView = findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);
     }
-    /*@Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
@@ -182,5 +181,5 @@ public class EXIFActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mapView.onPause();
-    }*/
+    }
 }
