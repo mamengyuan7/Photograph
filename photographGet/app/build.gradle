@@ -90,6 +90,8 @@ dependencies {
     debugImplementation libLeakcanary
     implementation 'com.android.support:multidex:1.0.3'
     implementation files('libs\\BaiduLBS_Android.jar')
+    //圆形图片的实现
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }

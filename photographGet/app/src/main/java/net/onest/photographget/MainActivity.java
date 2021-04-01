@@ -3,10 +3,17 @@ package net.onest.photographget;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SyncStatusObserver;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -25,6 +32,8 @@ import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private RadioGroup mTabRadioGroup;
+    private PopupWindow mPopWindow;
+    View popupWindowView;
     private SparseArray<Fragment> mFragmentSparseArray;
 
 
@@ -33,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
+        /*initPopupWindow();*/
     }
 
     private void initView() {
@@ -55,13 +64,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.sign_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DetailedActivity.class));
+                /*startActivity(new Intent(MainActivity.this, DetailedActivity.class));*/
+                //点击按钮，使弹出半透明页面并有按钮；
+               showPopupWindow();
             }
         });
     }
 
+    private void showPopupWindow() {
+        //设置contentView
+        View contentView = LayoutInflater.from(MainActivity.this).inflate(R.layout.home_fb, null);
+        mPopWindow = new PopupWindow(contentView);
+        mPopWindow.setWidth(ViewGroup.LayoutParams.FILL_PARENT);
+        mPopWindow.setHeight(ViewGroup.LayoutParams.FILL_PARENT);
+        mPopWindow.setContentView(contentView);
+        //设置各个控件的点击响应
+        ImageView conceal=(ImageView)contentView.findViewById(R.id.conceal);
+        ImageView image_zp=(ImageView)contentView.findViewById(R.id.image_zp) ;
+        ImageView iamge_bw=(ImageView)contentView.findViewById(R.id.image_bw);
+        conceal.setOnClickListener(this);
+        image_zp.setOnClickListener(this);
+        iamge_bw.setOnClickListener(this);
+        //.....
+        //显示PopupWindow
+        View rootview = LayoutInflater.from(MainActivity.this).inflate(R.layout.activity_main, null);
+        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+    }
+
     @Override
     public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.conceal:
+                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT);
+                mPopWindow.dismiss();
+                break;
+            case R.id.image_zp:
+                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT);
+                mPopWindow.dismiss();
+                break;
+            case R.id.image_bw:
+                Toast.makeText(this,"bowen",Toast.LENGTH_SHORT);
+                mPopWindow.dismiss();
+                break;
+                default:
+                    break;
+        }
 
     }
 }
