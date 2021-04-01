@@ -17,6 +17,7 @@ public class PictureDetail {
 	private int id;
 	@Column(name = "pic_id")
 	private int picId;
+	private int flag;
 	private String brand;
 	private String type;
 	private String ptype;
@@ -100,6 +101,12 @@ public class PictureDetail {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public int getFlag() {
+		return flag;
+	}
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 
 	
