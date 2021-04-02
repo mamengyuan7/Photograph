@@ -96,11 +96,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id=v.getId();
         switch (id){
             case R.id.conceal:
-                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT).show();
                 mPopWindow.dismiss();
                 break;
             case R.id.image_zp:
-                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,Login.class));
                 mPopWindow.dismiss();
                 break;
             case R.id.image_bw:
