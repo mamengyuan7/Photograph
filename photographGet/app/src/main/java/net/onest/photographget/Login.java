@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.onest.photographget.utils.ResetPwd;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +32,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout mLayBackBar;
     private TextView mTvLoginForgetPwd;
     private Button mBtLoginRegister;
+    private TextView tv_navigation_label;
 
     //全局Toast
     private Toast mToast;
@@ -39,6 +42,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        tv_navigation_label=findViewById(R.id.tv_navigation_label);
+        tv_navigation_label.setText("登录");
         initView();
     }
 
@@ -124,7 +129,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.tv_login_forget_pwd:
                 //忘记密码
-               /* startActivity(new Intent(MainActivity.this, ForgetPwdActivity.class));*/
+                startActivity(new Intent(Login.this, ResetPwd.class));
                 break;
             /*case R.id.ll_login_layer:
             case R.id.ll_login_pull:
