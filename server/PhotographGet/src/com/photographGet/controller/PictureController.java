@@ -1,5 +1,6 @@
 package com.photographGet.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.photographGet.entity.Picture;
+import com.photographGet.entity.PictureDetail;
+import com.photographGet.utils.SampleUsage;
+import com.photographGet.utils.service.PicDetailService;
 import com.photographGet.utils.service.PictureService;
 
 @Controller
@@ -23,11 +27,30 @@ public class PictureController {
 	@Resource
 	private PictureService pictureService;
 	
+	@Resource
+	private PicDetailService picDetailService;
+	
 	@RequestMapping("/addPic")
 	public void addPic(@RequestParam String picture) {
 		Gson gson = new Gson();
 		Picture pic = gson.fromJson(picture, Picture.class);
 		pictureService.savePicture(pic);
+		PictureDetail pictureDetail = new PictureDetail();
+		String path = pic.getImgAddress();
+		String[] p = path.split("--");
+		pictureDetail.setPicId(pic.getId());
+		for(int i = 0;i<p.length;i++) {
+			try {
+				File file = SampleUsage.getFile(p[i]);
+				pictureDetail = SampleUsage.printImageTags(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			pictureDetail.setFlag(i+1);
+			pictureDetail.setAddress(p[i]);
+			picDetailService.savePicDetail(pictureDetail);
+		}
 	}
 	
 	@RequestMapping("/listall")

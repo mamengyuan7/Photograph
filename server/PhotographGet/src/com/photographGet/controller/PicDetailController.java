@@ -26,7 +26,7 @@ public class PicDetailController {
 	private PicDetailService picDetailService;
 	
 	@RequestMapping("/add")
-	public void addComment(@RequestParam String picDetail) {
+	public void addPicDetail(@RequestParam String picDetail) {
 		Gson gson = new Gson();
 		PictureDetail pDetail = gson.fromJson(picDetail, PictureDetail.class);
 		picDetailService.savePicDetail(pDetail);
