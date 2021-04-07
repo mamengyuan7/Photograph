@@ -3,9 +3,6 @@ package net.onest.photographget;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,27 +21,15 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import net.onest.photographget.entity.Picture;
-import net.onest.photographget.entity.PictureDetail;
 import net.onest.photographget.entity.Text;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,26 +45,13 @@ public class EXIFActivity extends AppCompatActivity {
     private TextView latitude;
     private TextView longitude;
     private TextView aaa;
+    private Picture pic;
     private MapView mapView;
     private BaiduMap baiduMap;
     private UiSettings uiSettings;
     private LocationClient locationClient;
     private LocationClientOption locationClientOption;
     private LatLng point;
-    private int pos;
-    private int pId;
-    private PictureDetail pictureDetail;
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            String info = (String)msg.obj;
-            Log.e("zz",info);
-            Type type=new TypeToken<List<PictureDetail>>(){}.getType();
-            Gson gson=new Gson();
-            pictureDetail = gson.fromJson(info,type);
-            }
-    };
 
     //FB:A3:65:74:8F:77:0E:26:87:40:05:D3:E3:DA:00:B0:55:18:F6:DE
     @Override
@@ -88,68 +60,29 @@ public class EXIFActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.exit_activity);
         initView();
-
-        //接受传递过来的图片信息（确定是第几张图片）
-        pos = getIntent().getIntExtra("pos",0);
-//        Log.e("pos",flag+"");
-        pId = getIntent().getIntExtra("pId",0);
-        getEXIFinformation();
-        init();
+        pic = new Picture(1,"E://image//万达广场.jpg",
+                1,"vivo","3炫彩","无",
+                "wu","4.7mm","320","2021:02:19 19:01:52",
+                38.02618789666666,114.53675079333333);
+        pImage.setImageResource(R.mipmap.wanda);
+        brand.setText("品牌："+pic.getBrand());
+        type.setText("型号："+pic.getType());
+        ptype.setText("分辨率单位："+pic.getPtype());
+        camera_lens.setText("镜头："+pic.getCamera_lens());
+        focal_length.setText("焦距："+pic.getFocal_length());
+        iso.setText("ISO："+pic.getIso());
+        time.setText("拍摄时间："+pic.getTime());
+        latitude.setText("经度："+pic.getLatitude());
+        longitude.setText("纬度："+pic.getLongitude());
 
         initializeMap();
         hideLogo();
         zoomLevelOp();
-        showLocOnMap(pictureDetail.getLatitude(),pictureDetail.getLongitude());
-        String a = getAddress(pictureDetail.getLatitude(),pictureDetail.getLongitude());
-//        String a = getAddress(38.026187,114.536750);
+        showLocOnMap(38.026187152514,114.536750123456);
+        String a = getAddress(38.026187,114.536750);
         aaa.setText(a);
     }
-    private void init(){
-        pImage.setImageResource(R.mipmap.wanda);
-        brand.setText("品牌："+pictureDetail.getBrand());
-        type.setText("型号："+pictureDetail.getType());
-        ptype.setText("分辨率单位："+pictureDetail.getPtype());
-        camera_lens.setText("镜头："+pictureDetail.getCarmeraLen());
-        focal_length.setText("焦距："+pictureDetail.getFocalLength());
-        iso.setText("ISO："+pictureDetail.getIso());
-        time.setText("拍摄时间："+pictureDetail.getTime());
-        latitude.setText("经度："+pictureDetail.getLatitude()+"");
-        longitude.setText("纬度："+pictureDetail.getLongitude()+"");
-    }
 
-    private void getEXIFinformation(){
-        new Thread(){
-            @Override
-            public void run() {
-                String picId = pId+"";
-                String flag = pos+"";
-                try {
-                    URL url = new URL("http://175.24.16.26:8080/PhotographGet/pictureDetail/list?picId="+picId+"&flag="+flag);
-                    URLConnection conn = url.openConnection();
-                    InputStream in = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
-                    String info = reader.readLine();
-                    Log.e("pikaqiu","传过来了呢！");
-                    Log.e("xx2",info);
-                    wrapperMessage(info);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }.start();
-    }
-
-    private void wrapperMessage(String info) {
-        Message msg = Message.obtain();
-        msg.obj = info;
-//        msg.what = 66;
-        handler.sendMessage(msg);
-    }
     private void showLocOnMap(double lat, double lng) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.location);
         setMarkPoint(lat,lng);

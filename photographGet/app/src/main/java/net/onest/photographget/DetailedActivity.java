@@ -66,10 +66,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(View view, int position) {
                 Log.e("是谁？",""+position);
-                //传输数据，确定点击的是哪张图片
                 Intent intent = new Intent(DetailedActivity.this,EXIFActivity.class);
-                intent.putExtra("pos",position);
-                intent.putExtra("pId",1);
                 startActivity(intent);
             }
         });

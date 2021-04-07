@@ -93,7 +93,5 @@ dependencies {
     //圆形图片的实现
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    implementation 'com.google.code.gson:gson:2.8.1'
-
 
 }

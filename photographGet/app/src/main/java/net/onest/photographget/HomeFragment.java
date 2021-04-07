@@ -1,6 +1,7 @@
 package net.onest.photographget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -169,6 +170,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     @Override
     public void OnBannerClick(int position) {
         Toast.makeText(getActivity(), "你点击了第" + (position + 1) + "张轮播图", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(),DetailedActivity.class);
+        startActivity(intent);
     }
 
 
