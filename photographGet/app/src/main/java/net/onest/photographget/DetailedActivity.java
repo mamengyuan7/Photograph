@@ -67,7 +67,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void onItemClick(View view, int position) {
                 Log.e("是谁？",""+position);
                 Intent intent = new Intent(DetailedActivity.this,EXIFActivity.class);
+                intent.putExtra("pos",position);
+                intent.putExtra("pId",1);
                 startActivity(intent);
+                finish();
             }
         });
         //点赞功能
