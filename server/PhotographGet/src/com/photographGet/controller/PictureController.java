@@ -31,7 +31,9 @@ public class PictureController {
 	private PicDetailService picDetailService;
 	
 	@RequestMapping("/addPic")
-	public void addPic(@RequestParam String picture) {
+	public String addPic(@RequestParam String picture,HttpServletResponse rep) {
+		rep.setCharacterEncoding("UTF-8");
+		rep.setContentType("text/html;charset=UTF-8");
 		Gson gson = new Gson();
 		Picture pic = gson.fromJson(picture, Picture.class);
 		pictureService.savePicture(pic);
@@ -47,10 +49,21 @@ public class PictureController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			pictureDetail.setFlag(i+1);
+			pictureDetail.setFlag(i);
 			pictureDetail.setAddress(p[i]);
 			picDetailService.savePicDetail(pictureDetail);
 		}
+		PrintWriter writer;
+		try {
+			writer = rep.getWriter();
+			writer.println("添加成功！");
+		    writer.flush();
+		    writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@RequestMapping("/listall")
@@ -96,6 +109,6 @@ public class PictureController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return picsing;
+		return null;
 	}
 }

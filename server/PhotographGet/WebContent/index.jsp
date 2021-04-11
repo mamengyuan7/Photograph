@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="user/list">user模块的信息维护功能</a>
+	<!-- <a href="user/list">user模块的信息维护功能</a> -->
 </body>
 </html>

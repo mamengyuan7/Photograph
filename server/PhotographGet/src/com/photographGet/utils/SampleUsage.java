@@ -15,57 +15,57 @@ import com.photographGet.entity.PictureDetail;
 
 public class SampleUsage {
 	/** 
-     * ¶ÁÈ¡ÕÕÆ¬ÀïÃæµÄĞÅÏ¢ 
+     * ï¿½ï¿½È¡ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ 
      */ 
     public static PictureDetail printImageTags(File file) throws ImageProcessingException, Exception{  
     	PictureDetail pictureDetail = new PictureDetail();
     	Metadata metadata = ImageMetadataReader.readMetadata(file);
         for (Directory directory : metadata.getDirectories()) {  
             for (Tag tag : directory.getTags()) {  
-                String tagName = tag.getTagName();  //±êÇ©Ãû
-                String desc = tag.getDescription(); //±êÇ©ĞÅÏ¢
+                String tagName = tag.getTagName();  //ï¿½ï¿½Ç©ï¿½ï¿½
+                String desc = tag.getDescription(); //ï¿½ï¿½Ç©ï¿½ï¿½Ï¢
                 if (tagName.equals("Image Height")) {  
-                	System.out.println("Í¼Æ¬¸ß¶È: "+desc);
+                	System.out.println("é«˜åº¦: "+desc);
                 } else if (tagName.equals("Image Width")) {  
-                	System.out.println("Í¼Æ¬¿í¶È: "+desc);
+                	System.out.println("å®½: "+desc);
                 } else if (tagName.equals("Date/Time Original")) {  
-                	System.out.println("ÅÄÉãÊ±¼ä: "+desc);
+                	System.out.println("æ‹æ‘„æ—¶é—´: "+desc);
                 	//time
                 	pictureDetail.setTime(desc);
                 }else if (tagName.equals("GPS Latitude")) {  
-                	System.err.println("Î³¶È : "+desc);
-                	System.err.println("Î³¶È(¶È·ÖÃë¸ñÊ½) : "+pointToLatlong(desc));
+                	System.err.println("çº¬åº¦ : "+desc);
+                	System.err.println("çº¬åº¦(â€¦â€¦) : "+pointToLatlong(desc));
                 	//longitude
                 	double lon = Double.parseDouble(pointToLatlong(desc));
                 	pictureDetail.setLongitude(lon);
                 } else if (tagName.equals("GPS Longitude")) {  
-                	System.err.println("¾­¶È: "+desc);
-                	System.err.println("¾­¶È(¶È·ÖÃë¸ñÊ½): "+pointToLatlong(desc));
+                	System.err.println("ç»åº¦: "+desc);
+                	System.err.println("ç»åº¦(â€¦â€¦): "+pointToLatlong(desc));
                 	//latitude
                 	double lat = Double.parseDouble(pointToLatlong(desc));
                 	pictureDetail.setLatitude(lat);
                 } else if (tagName.equals("Make")) {
-					System.out.println("ÅÄÉãÉè±¸£º"+desc);
+					System.out.println("å‹å·ï¼š"+desc);
 					//brand
 					pictureDetail.setBrand(desc);
 				}else if (tagName.equals("Model")) {
-					System.out.println("ĞÍºÅ£º"+desc);
+					System.out.println("brandï¼š"+desc);
 					//type
 					pictureDetail.setType(desc);
 				}else if (tagName.equals("ISO Speed Ratings")) {
-					System.out.println("ISO£º"+desc);
+					System.out.println("ISOï¼š"+desc);
 					//ISO
 					pictureDetail.setIso(desc);
 				}else if (tagName.equals("Focal Length")) {
-					System.out.println("½¹¾à£º"+desc);
+					System.out.println("ç„¦è·ï¼š"+desc);
 					//focal_length
 					pictureDetail.setFocalLength(desc);
 				}else if (tagName.equals("Resolution Unit")) {
-					System.out.println("·Ö±æÂÊ£º"+desc);
+					System.out.println("åˆ†è¾¨ç‡ï¼š"+desc);
 					//ptype
 					pictureDetail.setPtype(desc);
 				}else if(tagName.equals("ApertureValue")) {
-					System.out.println("¾µÍ·£º"+desc);
+					System.out.println("åƒç´ ï¼š"+desc);
 					//camera_len
 					pictureDetail.setCarmeraLen(desc);
 				}
@@ -75,19 +75,19 @@ public class SampleUsage {
         return pictureDetail;
     }  
     /** 
-     * ¾­Î³¶È¸ñÊ½  ×ª»»Îª  ¶È·ÖÃë¸ñÊ½ ,Èç¹ûĞèÒªµÄ»°¿ÉÒÔµ÷ÓÃ¸Ã·½·¨½øĞĞ×ª»»
-     * @param point ×ø±êµã 
+     * ï¿½ï¿½Î³ï¿½È¸ï¿½Ê½  ×ªï¿½ï¿½Îª  ï¿½È·ï¿½ï¿½ï¿½ï¿½Ê½ ,ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä»ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ã¸Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
+     * @param point ï¿½ï¿½ï¿½ï¿½ï¿½ 
      * @return 
      */ 
     public static String pointToLatlong (String point ) {  
-        Double du = Double.parseDouble(point.substring(0, point.indexOf("¡ã")).trim());  
-        Double fen = Double.parseDouble(point.substring(point.indexOf("¡ã")+1, point.indexOf("'")).trim());  
+        Double du = Double.parseDouble(point.substring(0, point.indexOf("ï¿½ï¿½")).trim());  
+        Double fen = Double.parseDouble(point.substring(point.indexOf("ï¿½ï¿½")+1, point.indexOf("'")).trim());  
         Double miao = Double.parseDouble(point.substring(point.indexOf("'")+1, point.indexOf("\"")).trim());  
         Double duStr = du + fen / 60 + miao / 60 / 60 ;  
         return duStr.toString();  
     }  
     public static File getFile(String url) throws Exception {
-        //¶Ô±¾µØÎÄ¼şÃüÃû
+        //ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
         String fileName = url.substring(url.lastIndexOf("."),url.length());
         File file = null;
 
@@ -96,7 +96,7 @@ public class SampleUsage {
         OutputStream os = null;
         try {
             file = File.createTempFile("net_url", fileName);
-            //ÏÂÔØ
+            //ï¿½ï¿½ï¿½ï¿½
             urlfile = new URL(url);
             inStream = urlfile.openStream();
             os = new FileOutputStream(file);

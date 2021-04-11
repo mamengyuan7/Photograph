@@ -24,14 +24,14 @@ import com.photographGet.utils.service.UserService;
 public class UserController {
 	@Resource
 	private UserService userService;
-	//Ìí¼ÓÓÃ»§
+	//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	@RequestMapping("/adduser")
 	public void addUser(@RequestParam String user) {
 		Gson gson = new Gson();
 		User user2=gson.fromJson(user, User.class);
 		userService.saveUser(user2);
 	}
-	//»ñµÃÓÃ»§
+	//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	@RequestMapping("/getuser")
 	public String list(@RequestParam String id,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
@@ -55,7 +55,7 @@ public class UserController {
 		}
 		return usering;
 	}
-	//µÇÂ¼
+	//ï¿½ï¿½Â¼
 	@RequestMapping("/ifuser")
 	public String loginif(@RequestParam String client,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
@@ -81,15 +81,15 @@ public class UserController {
 			return ruclient;
 		}
 		else {
-			return "ÃÜÂë´íÎó";
+			return "è¾“å…¥é”™è¯¯";
 		}
 	}
-	/*//ÁÐ³öËùÓÐµÄÓÃ»§
+	/*//ï¿½Ð³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ã»ï¿½
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<User> users = new ArrayList<>();
 		users = userService.list();
-		int n = pianoServiceIpml.selectPrice("À²À²À²");
+		int n = pianoServiceIpml.selectPrice("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		System.out.println(n);
 		model.addAttribute("users", users);
 		return "list";
