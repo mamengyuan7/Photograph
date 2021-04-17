@@ -267,16 +267,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     private void initData() {
         User user1 = new User();
-        user1.setImg_up("111");
-        user1.setName("名字1");
+       /* user1.setImg_up("111");
+        user1.setName("名字1");*/
 
         User user2 = new User();
-        user2.setImg_up("222");
-        user2.setName("名字2");
+       /* user2.setImg_up("222");
+        user2.setName("名字2");*/
 
         User user3 = new User();
-        user3.setImg_up("333");
-        user3.setName("名字3");
+      /*  user3.setImg_up("333");
+        user3.setName("名字3");*/
         users.add(user1);
         users.add(user2);
         users.add(user3);

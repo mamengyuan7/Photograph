@@ -1,20 +1,21 @@
 package net.onest.photographget.entity;
 
 public class User {
-    private int id;
-    private String name;
-    private String psd;
-    private String head_portrait;
-    private String background;
-    private String pers_signature;
-    private String img_up;
+    private int id;//id
+    private String nickName;//昵称
+    private String password;//密码
+    private String head_portrait;//头像
+    private String background;//背景
+    private String pers_signature;//个签
+    private String telephone;//手机号
 
-    public String getImg_up() {
-        return img_up;
+    public User(){
+
     }
 
-    public void setImg_up(String img_up) {
-        this.img_up = img_up;
+    public User(String telephone,String password ) {
+        this.password = password;
+        this.telephone = telephone;
     }
 
     public int getId() {
@@ -25,20 +26,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getPsd() {
-        return psd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPsd(String psd) {
-        this.psd = psd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getHead_portrait() {
@@ -63,5 +64,13 @@ public class User {
 
     public void setPers_signature(String pers_signature) {
         this.pers_signature = pers_signature;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }
