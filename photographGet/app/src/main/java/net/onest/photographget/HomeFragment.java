@@ -30,8 +30,10 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import net.onest.photographget.entity.Huodong;
+import net.onest.photographget.entity.Picture;
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
+import net.onest.photographget.utils.EventBean;
 
 import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
@@ -49,6 +51,8 @@ import androidx.viewpager.widget.ViewPager;
 public class HomeFragment extends Fragment implements View.OnClickListener,OnBannerListener {
     View view;
     View view1;
+
+    private EventBean eventBean;
 
     private Banner mBanner;
   //////分类
@@ -261,8 +265,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
        photo_kinds();
 
     }
-
-    private void initData() {
+///////初始化数据
+    private List<Picture> initData() {
         User user1 = new User();
         user1.setImg_up("111");
         user1.setName("张三");
@@ -277,7 +281,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         users.add(user1);
         users.add(user2);
         users.add(user3);
+
+        List<Picture> pictures=new ArrayList<>();
+//        eventBus=EventBus.getDefault();
+//        if(!eventBus.isRegistered(HomeFragment.this)) {
+//            eventBus.register(HomeFragment.this);
+//        }
+//        new QueryInfo().getTeacherInfos();
+        return pictures;
     }
+
 
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
