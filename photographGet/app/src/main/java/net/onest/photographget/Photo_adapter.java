@@ -69,7 +69,7 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent();
-                    intent.setClass(context,Test_intent.class);
+                    intent.setClass(context,DetailedActivity.class);
 
                     context.startActivity(intent);
                 }
@@ -87,7 +87,7 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
         @Override
         public void onClick(View v) {
             Intent intent=new Intent();
-            intent.setClass(context,Test_intent.class);
+            intent.setClass(context,DetailedActivity.class);
 
             context.startActivity(intent);
         }
