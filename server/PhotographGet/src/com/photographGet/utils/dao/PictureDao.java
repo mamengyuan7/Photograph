@@ -35,4 +35,11 @@ public class PictureDao {
 		List<Picture> pictures=query.list();
 		return pictures;
 	}
+                public Picture findById(int id){
+		Session session=this.sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from Picture where id= ?");
+		query.setParameter(0,id);
+		Picture picture=(Picture)query.uniqueResult();
+		return picture;
+	}
 }
