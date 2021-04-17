@@ -2,9 +2,12 @@ package net.onest.photographget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,14 +20,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wx.goodview.GoodView;
 
 import net.onest.photographget.adapter.AdapterComment;
-import net.onest.photographget.model.Comment;
+import net.onest.photographget.entity.Comment;
+import net.onest.photographget.entity.Picture;
+import net.onest.photographget.model.Commentt;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,10 +55,56 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
-    private List<Comment> data;
+    private List<Commentt> data;
     private AdapterComment adapterComment;
     private List<String> imgs = new ArrayList<>();
+    private Picture picture;
     private MultiImageView.OnItemClickListener mOnItemClickListener;
+    private Comment comm = new Comment();
+    private String name;
+    private int picId = 4;
+    private int userId = 1;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if(msg.what == 66){
+                super.handleMessage(msg);
+                name = (String)msg.obj;
+                Log.e("comm",name);
+            }else if(msg.what == 26){
+                super.handleMessage(msg);
+                String info = (String)msg.obj;
+                Log.e("comm",info);
+            }else if(msg.what == 62){
+                super.handleMessage(msg);
+                String info = (String)msg.obj;
+                Log.e("aaa",info);
+                Type type=new TypeToken<Picture>(){}.getType();
+                Gson gson=new Gson();
+                picture = gson.fromJson(info,type);
+                String a = picture.getImgAddress();
+                Log.e("aaaa",a);
+                String[] path = a.split("--");
+                for(int i = 0;i<path.length;i++){
+                    imgs.add(path[i]);
+                }
+                multiImageView.setList(imgs);
+                multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Log.e("是谁？",""+position);
+                        Intent intent = new Intent(DetailedActivity.this,LargePic.class);
+                        intent.putExtra("pos",position);
+                        intent.putExtra("pId",1);
+                        intent.putExtra("address",imgs.get(position));
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,9 +114,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         //图片展示
         multiImageView = findViewById(R.id.multiImage);
 
-        imgs.add("https://file06.16sucai.com/2016/0613/8b7ab7ea218d6fbea16d75eda49bd9ca.jpg");
+        listImg();
+        /*imgs.add("https://file06.16sucai.com/2016/0613/8b7ab7ea218d6fbea16d75eda49bd9ca.jpg");
         imgs.add("https://file06.16sucai.com/2016/0328/f6de184de1f109750ed5d316c3bbd324.jpg");
-        imgs.add("https://file06.16sucai.com/2016/0613/fcf84cb40747b3602135fb9dd4f0d897.jpg");
+        imgs.add("https://file06.16sucai.com/2016/0328/f6de184de1f109750ed5d316c3bbd324.jpg");
         imgs.add("https://file06.16sucai.com/2016/0613/5b4aeec20404962438c8bb791f1979da.jpg");
         imgs.add("https://file06.16sucai.com/2016/0613/892e575cf8ba89579eacde6fae3bcf74.jpg");
         imgs.add("https://file06.16sucai.com/2016/0613/33445716589c16ca0742d1cefc2ac701.jpg");
@@ -66,17 +130,20 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(View view, int position) {
                 Log.e("是谁？",""+position);
-                Intent intent = new Intent(DetailedActivity.this,EXIFActivity.class);
+                Intent intent = new Intent(DetailedActivity.this,LargePic.class);
                 intent.putExtra("pos",position);
                 intent.putExtra("pId",1);
+                intent.putExtra("address",imgs.get(position));
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
         //点赞功能
         mGoodView = new GoodView(this);
         initView1();
-        }
+        //获取nickname
+        getNickName();
+    }
     //点赞点击事件
     public void collection(View view) {
         ((ImageView) view).setImageResource(R.drawable.collection_checked);
@@ -135,7 +202,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 im.hideSoftInputFromWindow(comment_content.getWindowToken(), 0);
                 break;
             case R.id.comment_send:
-                sendComment();
+                sendComment(name);
                 break;
             default:
                 break;
@@ -143,15 +210,20 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //发送评论
-    public void sendComment(){
+    public void sendComment(String name){
         if(comment_content.getText().toString().equals("")){
             Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
         }else{
             // 生成评论数据
-            Comment comment = new Comment();
-            comment.setName("评论者"+(data.size()+1)+"：");
-            comment.setContent(comment_content.getText().toString());
-            adapterComment.addComment(comment);
+            Commentt commentt = new Commentt();
+            commentt.setName(name+"：");
+            commentt.setContent(comment_content.getText().toString());
+            comm.setContent(comment_content.getText().toString());
+            comm.setPicId(picId);
+            comm.setUserId(userId);
+            Log.e("comm",comm.getContent());
+            saveComment();
+            adapterComment.addComment(commentt);
             // 发送完，清空输入框
             comment_content.setText("");
 
@@ -162,5 +234,106 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+    private void getNickName(){
+        SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
+        int id = p.getInt("user_id",0);
+        Log.e("id值是：",id+"");
+        String id1 = String.valueOf(id);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Log.e("数据是：","");
+                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/getNickname?userId="+id1);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.e("pikaqiu","传过来了呢！");
+                    Log.e("xx2",info);
+                    wrapperMessage(info);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+    private void saveComment(){
+        Gson gson = new Gson();
+        final String c = gson.toJson(comm);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Log.e("数据是：","");
+                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/comment/addcomment?comment="+c);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.e("pikaqiu","传过来了呢！");
+                    Log.e("xx2",info);
+                    wrapperMessage1(info);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+    private void listImg(){
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Log.e("数据是：","picId="+picId);
+                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/picture/lista?id="+picId);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.e("pikaqiu","传过来了呢！");
+                    Log.e("xx2",info);
+                    wrapperMessage3(info);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+
+    private void wrapperMessage3(String info) {
+        Message msg = Message.obtain();
+        msg.obj = info;
+        msg.what = 62;
+        handler.sendMessage(msg);
+    }
+
+    private void wrapperMessage(String info) {
+        Message msg = Message.obtain();
+        msg.obj = info;
+        msg.what = 66;
+        handler.sendMessage(msg);
+    }
+    private void wrapperMessage1(String info) {
+        Message msg = Message.obtain();
+        msg.obj = info;
+        msg.what = 26;
+        handler.sendMessage(msg);
     }
 }

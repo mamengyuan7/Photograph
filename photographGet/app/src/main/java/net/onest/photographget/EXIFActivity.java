@@ -88,22 +88,21 @@ public class EXIFActivity extends AppCompatActivity {
                 Type type=new TypeToken<PictureDetail>(){}.getType();
                 Gson gson=new Gson();
                 pictureDetail = gson.fromJson(info,type);
-                Log.e("pika",pictureDetail.getAddress());
+//                Log.e("pika",pictureDetail.g
+//                etAddress());
                 //信息的展示
                 init();
                 initializeMap();
                 hideLogo();
                 zoomLevelOp();
-                showLocOnMap(pictureDetail.getLatitude(),pictureDetail.getLongitude());
-                String a = getAddress(pictureDetail.getLatitude(),pictureDetail.getLongitude());
-                aaa.setText(a);
-            }else if(msg.what == 62){
-                Bitmap bitmap = (Bitmap) msg.obj;
-                pImage.setImageBitmap(bitmap);
-            }else if (msg.what == ERROR) {
-                /*Toast.makeText(MapFindAcitvity.this, "显示图片错误",
-                        Toast.LENGTH_SHORT).show();*/
-                Log.e("报错了！","llalalalala");
+                if(pictureDetail.getAddress()!=null){
+                    showLocOnMap(pictureDetail.getLatitude(),pictureDetail.getLongitude());
+                    String a = getAddress(pictureDetail.getLatitude(),pictureDetail.getLongitude());
+                    aaa.setText(a);
+                }else {
+                    aaa.setText("无法定位到位置！");
+                }
+
             }
         }
     };
@@ -141,10 +140,9 @@ public class EXIFActivity extends AppCompatActivity {
     private void init(){
         /*Bitmap bitmap = getBitmip(pictureDetail.getAddress());
         pImage.setImageBitmap(bitmap);*/
-//        pImage.setImageResource(R.mipmap.wanda);
-        getPicBitmap(pictureDetail.getAddress());
+        /*pImage.setImageResource(R.mipmap.wanda);
+        getPicBitmap(pictureDetail.getAddress());*/
         brand.setText("品牌："+pictureDetail.getBrand());
-        type.setText("型号："+pictureDetail.getType());
         ptype.setText("分辨率单位："+pictureDetail.getPtype());
         camera_lens.setText("镜头："+pictureDetail.getCarmeraLen());
         focal_length.setText("焦距："+pictureDetail.getFocalLength());
@@ -152,74 +150,6 @@ public class EXIFActivity extends AppCompatActivity {
         time.setText("拍摄时间："+pictureDetail.getTime());
         latitude.setText("经度："+pictureDetail.getLatitude());
         longitude.setText("纬度："+pictureDetail.getLongitude());
-    }
-    public static Bitmap getBitmip(String path){
-        URL url = null;
-        try {
-            url = new URL(path);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setRequestMethod("GET");
-            if(conn.getResponseCode() == 200){
-                InputStream inputStream = conn.getInputStream();
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                return bitmap;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    //读取网络图片URL
-    public void getPicBitmap(String path){
-        new Thread() {
-            private HttpURLConnection conn;
-            private Bitmap bitmap;
-            public void run() {
-                // 连接服务器 get 请求 获取图片
-                try {
-                    //创建URL对象
-                    Log.e("ppppp",path);
-                    URL url = new URL(path);
-                    // 根据url 发送 http的请求
-                    conn = (HttpURLConnection) url.openConnection();
-                    // 设置请求的方式
-                    conn.setRequestMethod("GET");
-                    //设置超时时间
-                    conn.setConnectTimeout(5000);
-                    // 得到服务器返回的响应码
-                    int code = conn.getResponseCode();
-                    //请求网络成功后返回码是200
-                    if (code == 200) {
-                        //获取输入流
-                        InputStream is = conn.getInputStream();
-                        //将流转换成Bitmap对象
-                        bitmap = BitmapFactory.decodeStream(is);
-                        //将更改主界面的消息发送给主线程
-                        Message msg = new Message();
-                        msg.what = 62;
-                        msg.obj = bitmap;
-                        handler.sendMessage(msg);
-                    } else {
-                        //返回码不等于200 请求服务器失败
-                        Message msg = new Message();
-                        msg.what = ERROR;
-                        handler.sendMessage(msg);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Message msg = new Message();
-                    msg.what = ERROR;
-                    handler.sendMessage(msg);
-                }
-                //关闭连接
-                conn.disconnect();
-            }
-        }.start();
     }
     private void getEXIFinformation(){
         new Thread(){
@@ -329,7 +259,6 @@ public class EXIFActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        pImage = (ImageView)findViewById(R.id.exif_img);
         brand = (TextView)findViewById(R.id.exif_brand);
         type = (TextView) findViewById(R.id.exif_type);
         ptype = (TextView)findViewById(R.id.exif_ptype);

@@ -302,7 +302,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://192.168.2.178:8080/PhotographGet/user/ifuser?client=" + client);
+                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/ifuser?client=" + client);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));

@@ -3,16 +3,16 @@ package net.onest.photographget.model;
 /**
  * Created by yyp on 2016/8/10.
  */
-public class Comment {
+public class Commentt {
 
     String name; //评论者
     String content; //评论内容
 
-    public Comment(){
+    public Commentt(){
 
     }
 
-    public Comment(String name, String content){
+    public Commentt(String name, String content){
         this.name = name;
         this.content = content;
     }

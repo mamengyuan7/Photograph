@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.onest.photographget.R;
-import net.onest.photographget.model.Comment;
+import net.onest.photographget.model.Commentt;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
 public class AdapterComment extends BaseAdapter {
 
     Context context;
-    List<Comment> data;
+    List<Commentt> data;
 
-    public AdapterComment(Context c, List<Comment> data){
+    public AdapterComment(Context c, List<Commentt> data){
         this.context = c;
         this.data = data;
     }
@@ -65,7 +65,7 @@ public class AdapterComment extends BaseAdapter {
      * 添加一条评论,刷新列表
      * @param comment
      */
-    public void addComment(Comment comment){
+    public void addComment(Commentt comment){
         data.add(comment);
         notifyDataSetChanged();
     }
