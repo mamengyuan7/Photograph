@@ -122,12 +122,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是banner对象："+mBanner);
         //图片资源
         int[] imageResourceID = new int[]{R.mipmap.one_photo,
-                R.mipmap.two_photo,
+                R.mipmap.p2,
                 R.mipmap.three_photo,
-                R.mipmap.four_photo};
+                R.mipmap.pp4};
         List<Integer> imgeList = new ArrayList<>();
         //轮播标题
-        String[] mtitle = new String[]{"图片1", "图片2", "图片3", "图片4"};
+        String[] mtitle = new String[]{"", "", "", ""};
         List<String> titleList = new ArrayList<>();
 
         for (int i = 0; i < imageResourceID.length; i++) {
@@ -265,15 +265,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     private void initData() {
         User user1 = new User();
         user1.setImg_up("111");
-        user1.setName("名字1");
+        user1.setName("张三");
 
         User user2 = new User();
         user2.setImg_up("222");
-        user2.setName("名字2");
+        user2.setName("李四");
 
         User user3 = new User();
         user3.setImg_up("333");
-        user3.setName("名字3");
+        user3.setName("王五 ");
         users.add(user1);
         users.add(user2);
         users.add(user3);
@@ -333,10 +333,10 @@ if (position==0) {
         tabSegment.setDefaultNormalColor(normalColor);
 
         viewpager_showphoto .setCurrentItem(0, false);
-        tabSegment.addTab(new QMUITabSegment.Tab("1"));
-        tabSegment.addTab(new QMUITabSegment.Tab("2"));
-        tabSegment.addTab(new QMUITabSegment.Tab("3"));
-        tabSegment.addTab(new QMUITabSegment.Tab("4"));
+        tabSegment.addTab(new QMUITabSegment.Tab("全部"));
+        tabSegment.addTab(new QMUITabSegment.Tab("风景"));
+        tabSegment.addTab(new QMUITabSegment.Tab("人像"));
+        tabSegment.addTab(new QMUITabSegment.Tab("动物"));
 
         tabSegment.getTab(0).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
         tabSegment.getTab(1).setTextColor(getResources().getColor(R.color.qmui_config_color_gray_5),getResources().getColor(R.color.white));
