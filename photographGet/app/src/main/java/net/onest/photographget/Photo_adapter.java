@@ -59,7 +59,8 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
     public void onBindViewHolder(@NonNull VH viewHolder, int position) {
 
            // Glide.with(context).load(users.get(position).getImg_up()).into(viewHolder.img);
-            viewHolder.username.setText(users.get(position).getName());
+            /*viewHolder.username.setText(users.get(position).getName());*/
+            viewHolder.username.setText(users.get(position).getNickName());
             int index=users.get(position).getId();
             //点击事件,点击图片，姓名，跳转到详情页面
             viewHolder.img.setOnClickListener(listener);
@@ -68,7 +69,7 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent();
-                    intent.setClass(context,Test_intent.class);
+                    intent.setClass(context,DetailedActivity.class);
 
                     context.startActivity(intent);
                 }
@@ -86,7 +87,7 @@ public class Photo_adapter extends RecyclerView.Adapter<Photo_adapter.VH> {
         @Override
         public void onClick(View v) {
             Intent intent=new Intent();
-            intent.setClass(context,Test_intent.class);
+            intent.setClass(context,DetailedActivity.class);
 
             context.startActivity(intent);
         }

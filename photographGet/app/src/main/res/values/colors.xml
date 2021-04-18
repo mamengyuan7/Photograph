@@ -19,6 +19,7 @@
     <color name="black_alpha_128">#80000000</color>
     <color name="txtgrey">#7c7b7b</color>
     <color name="grey">#ececec</color>
+    <color name="transparent">#00000000</color>
     <!--底栏颜色-->
     <color name="black_main">#333333</color>
     <!--深黑色-->

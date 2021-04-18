@@ -1,2 +1,2 @@
-include ':app', ':goodview', ':Transferee', ':GlideImageLoader'
+include ':app', ':goodview'
 rootProject.name='photographGet'

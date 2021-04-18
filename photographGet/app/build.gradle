@@ -1,6 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        config {
+            storeFile file('E:\\Java\\Mystore\\keystore.jks')
+            storePassword '123456'
+            keyAlias = 'keystore'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -16,21 +29,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    signingConfigs {
-        Android_Sign {
-            storeFile file("$rootDir/transfer.jks")
-            keyAlias "vans"
-            keyPassword "123456"
-            storePassword "123456"
-        }
-    }
     buildTypes {
         release {
             minifyEnabled false
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
-            signingConfig signingConfigs.Android_Sign
             buildConfigField "boolean", "ENABLE_DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -84,9 +88,13 @@ dependencies {
     implementation libPicasso
     implementation libImmersionbar
     debugImplementation libLeakcanary
-    implementation project(path: ':Transferee')
-    implementation project(path: ':GlideImageLoader')
     implementation 'com.android.support:multidex:1.0.3'
+    implementation files('libs\\BaiduLBS_Android.jar')
+    //圆形图片的实现
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    implementation 'com.google.code.gson:gson:2.8.4'
+
+    implementation 'com.google.android.material:material:1.0.0'
 
 }
