@@ -60,6 +60,12 @@ public class LargePic extends AppCompatActivity {
         setContentView(R.layout.large_pic);
         floating = findViewById(R.id.floating);
         pic = findViewById(R.id.pic);
+        pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
         pos = intent.getIntExtra("pos",0);
         Log.e("aaaaaaaaaaa",pos+"");

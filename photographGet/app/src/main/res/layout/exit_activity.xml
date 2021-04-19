@@ -9,8 +9,9 @@
         android:layout_height="50dp"
         android:background="#333333">
         <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:id="@+id/exif_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/back"
             android:layout_centerVertical="true"/>
         <TextView
