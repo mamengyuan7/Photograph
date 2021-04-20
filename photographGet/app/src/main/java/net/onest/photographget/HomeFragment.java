@@ -296,7 +296,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             @NonNull
             @Override
             public Object instantiateItem(@NonNull final ViewGroup container, int position) {
-                RecyclerView recyclerView = new RecyclerView(getContext());  
+                RecyclerView recyclerView = new RecyclerView(getContext());
 if (position==0) {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
     gridLayoutManager.setOrientation(RecyclerView.VERTICAL);

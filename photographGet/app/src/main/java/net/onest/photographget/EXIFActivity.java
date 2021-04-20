@@ -66,6 +66,7 @@ public class EXIFActivity extends AppCompatActivity {
     private TextView latitude;
     private TextView longitude;
     private TextView aaa;
+    private ImageView back;
     private Picture pic;
     private MapView mapView;
     private BaiduMap baiduMap;
@@ -270,6 +271,13 @@ public class EXIFActivity extends AppCompatActivity {
         longitude = (TextView) findViewById(R.id.exif_longitude);
         aaa = (TextView)findViewById(R.id.aaa);
         mapView = findViewById(R.id.mapView);
+        back = findViewById(R.id.exif_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     @Override
     protected void onDestroy() {

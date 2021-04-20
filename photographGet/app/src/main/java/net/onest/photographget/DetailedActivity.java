@@ -52,6 +52,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView hide_down;
     private EditText comment_content;
     private Button comment_send;
+    private ImageView back;
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
@@ -111,6 +112,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_detailed);
 
+        back = findViewById(R.id.img_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //图片展示
         multiImageView = findViewById(R.id.multiImage);
 
