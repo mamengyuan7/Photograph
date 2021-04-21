@@ -78,7 +78,7 @@ public class LargePic extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LargePic.this, EXIFActivity.class);
                 intent.putExtra("pos",pos);
-                intent.putExtra("pId",1);
+                intent.putExtra("pId",pId);
                 startActivity(intent);
             }
         });
