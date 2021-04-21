@@ -1,4 +1,4 @@
-package com.photographGet.controller;
+ package com.photographGet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,14 +24,14 @@ import com.photographGet.utils.service.UserService;
 public class UserController {
 	@Resource
 	private UserService userService;
-	//����û�
+	
 	@RequestMapping("/adduser")
 	public void addUser(@RequestParam String user) {
 		Gson gson = new Gson();
 		User user2=gson.fromJson(user, User.class);
 		userService.saveUser(user2);
 	}
-	//����û�
+	
 	@RequestMapping("/getuser")
 	public String list(@RequestParam String id,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
@@ -55,7 +55,7 @@ public class UserController {
 		}
 		return usering;
 	}
-	//��¼
+	
 	@RequestMapping("/ifuser")
 	public String loginif(@RequestParam String client,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
@@ -84,12 +84,12 @@ public class UserController {
 			return "输入错误";
 		}
 	}
-	/*//�г����е��û�
+	/*
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<User> users = new ArrayList<>();
 		users = userService.list();
-		int n = pianoServiceIpml.selectPrice("������");
+		int n = pianoServiceIpml.selectPrice("ok");
 		System.out.println(n);
 		model.addAttribute("users", users);
 		return "list";

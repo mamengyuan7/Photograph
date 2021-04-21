@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/tv_topic"
         android:layout_alignParentBottom="true"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="@color/colorAccent"
         android:text="新春摄影活动"
         android:layout_width="wrap_content"

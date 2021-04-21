@@ -64,6 +64,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private String name;
     private int picId = 4;
     private int userId = 1;
+    
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {

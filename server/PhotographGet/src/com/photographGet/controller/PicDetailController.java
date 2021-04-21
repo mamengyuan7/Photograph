@@ -36,7 +36,7 @@ public class PicDetailController {
 	public String list(@RequestParam String picId,@RequestParam String flag,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
 		rep.setContentType("text/html;charset=UTF-8");
-		System.out.println("传过来了！");
+		System.out.println("ok");
 		Gson gson=new Gson();
 		System.out.println(picId);
 		System.out.println(flag);
@@ -63,7 +63,7 @@ public class PicDetailController {
 public String list(@RequestParam String flag,Model model,HttpServletRequest req,HttpServletResponse rep) {
 	rep.setCharacterEncoding("UTF-8");
 	rep.setContentType("text/html;charset=UTF-8");
-	System.out.println("接收到了！");
+	System.out.println("ok");
 	Gson gson=new Gson();
 	System.out.println(flag);
 	int f = Integer.parseInt(flag.trim());

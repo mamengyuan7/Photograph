@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
         </ImageView>
         <TextView
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:text="新春摄影活动"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <TextView
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:text="新春摄影活动"
@@ -38,11 +38,11 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="@drawable/home_1_item_back"
+        android:background="@drawable/touxiang"
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <TextView
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:text="新春摄影活动"

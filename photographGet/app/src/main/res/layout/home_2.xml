@@ -33,6 +33,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -40,20 +41,21 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="70dp"
             android:src="@drawable/n1"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
         </ImageView>
         <ImageView
+            android:scaleType="fitXY"
             android:layout_margin="5dp"
             android:src="@drawable/home_1_item_back"
             android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_height="30dp">
         </ImageView>
         <TextView
             android:textColor="@color/white"
             android:layout_gravity="center_vertical"
-            android:text="楚天"
+            android:text="张三"
             android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -61,6 +63,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -68,20 +71,21 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="70dp"
             android:src="@drawable/n2"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
         </ImageView>
         <ImageView
+            android:scaleType="fitXY"
             android:layout_margin="5dp"
-            android:src="@drawable/home_1_item_back"
+            android:src="@drawable/beijing"
             android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_height="30dp">
         </ImageView>
         <TextView
             android:textColor="@color/white"
             android:layout_gravity="center_vertical"
-            android:text="楚天"
+            android:text="李四"
             android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -89,6 +93,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -96,20 +101,21 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="70dp"
             android:src="@drawable/n3"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
         </ImageView>
         <ImageView
+            android:scaleType="fitXY"
             android:layout_margin="5dp"
-            android:src="@drawable/home_1_item_back"
+            android:src="@drawable/p2"
             android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_height="30dp">
         </ImageView>
         <TextView
             android:textColor="@color/white"
             android:layout_gravity="center_vertical"
-            android:text="楚天"
+            android:text="王五"
             android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

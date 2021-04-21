@@ -1,4 +1,4 @@
-package com.photographGet.controller;
+ package com.photographGet.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class PictureController {
 		pictureService.savePicture(pic);
 		List<Picture> ps = pictureService.findAllPicture();
 		int num = ps.size();
-		System.out.println("num是："+num);
+		System.out.println("num"+num);
 		PictureDetail pictureDetail = new PictureDetail();
 		String path = pic.getImgAddress();
 		String[] p = path.split("--");
@@ -81,7 +81,7 @@ public class PictureController {
 		PrintWriter writer;
 		try {
 			writer = rep.getWriter();
-			writer.println("添加成功！");
+			writer.println("ok");
 		    writer.flush();
 		    writer.close();
 		} catch (IOException e) {

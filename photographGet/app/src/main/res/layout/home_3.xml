@@ -12,7 +12,7 @@
         <TextView
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"
-            android:text="摄影后期必备技巧"
+            android:text="摄影后期必备技巧（一）"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -21,8 +21,8 @@
             android:layout_marginLeft="100dp"
             android:scaleType="fitXY"
             android:src="@drawable/home_1_item_back"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:layout_width="70dp"
+            android:layout_height="70dp">
         </ImageView>
     </LinearLayout>
 
@@ -33,7 +33,7 @@
         <TextView
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"
-            android:text="摄影后期必备技巧"
+            android:text="摄影后期必备技巧（二）"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -41,9 +41,9 @@
         <ImageView
             android:layout_marginLeft="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/home_1_item_back"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:src="@drawable/beijing"
+            android:layout_width="70dp"
+            android:layout_height="70dp">
         </ImageView>
     </LinearLayout>
 
@@ -54,7 +54,7 @@
         <TextView
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"
-            android:text="摄影后期必备技巧"
+            android:text="摄影后期必备技巧（三）"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -62,9 +62,9 @@
         <ImageView
             android:layout_marginLeft="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/home_1_item_back"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:src="@drawable/p2"
+            android:layout_width="70dp"
+            android:layout_height="70dp">
         </ImageView>
     </LinearLayout>
 
