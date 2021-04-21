@@ -35,15 +35,15 @@ import java.net.URLConnection;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "ifu25";
 
     //返回按钮
     private ImageButton mIbNavigationBack;
-
     private LinearLayout mLlLoginPull;
     private View mLlLoginLayer;
-
     private LinearLayout mLlLoginOptions;
     //手机号
     private EditText mEtLoginUsername;
@@ -302,7 +302,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/ifuser?client=" + client);
+                    URL url = new URL(urlAdress+"/PhotographGet/user/ifuser?client=" + client);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -320,10 +320,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         }.start();
-
-
-
-
     }
     private void wrapperMessage(String info){
         Message msg = Message.obtain();

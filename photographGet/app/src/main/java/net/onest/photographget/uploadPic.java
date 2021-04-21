@@ -37,6 +37,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class uploadPic extends AppCompatActivity {
     private static final int REQUEST_CODE = 0x00000011;
     private static final int PERMISSION_WRITE_EXTERNAL_REQUEST_CODE = 0x00000012;
@@ -159,7 +161,7 @@ public class uploadPic extends AppCompatActivity {
             public void run() {
                 try {
                     Log.e("pika","传数据！！！");
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/picture/addPic?picture="+pic);
+                    URL url = new URL(urlAdress+"/PhotographGet/picture/addPic?picture="+pic);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));

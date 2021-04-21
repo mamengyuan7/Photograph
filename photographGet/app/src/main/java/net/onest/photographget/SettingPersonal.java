@@ -41,9 +41,9 @@ public class SettingPersonal extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.setting_back1:
-                    Intent intent=new Intent(SettingPersonal.this,SettingDetail.class);
-                    startActivity(intent);
+                   finish();
                     break;
+
             }
         }
     }

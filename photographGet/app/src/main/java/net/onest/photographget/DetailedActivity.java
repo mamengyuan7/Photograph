@@ -45,6 +45,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class DetailedActivity extends AppCompatActivity implements View.OnClickListener {
     private MultiImageView multiImageView;
     private GoodView mGoodView;
@@ -278,7 +280,11 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","");
+<<<<<<< HEAD
                     URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/getNickname?userId="+id);
+=======
+                    URL url = new URL(urlAdress+"/PhotographGet/user/getNickname?userId="+id1);
+>>>>>>> 5eca40fe054aa94846824001806f0824af80da8e
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -305,7 +311,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","");
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/comment/addcomment?comment="+c);
+                    URL url = new URL(urlAdress+"/PhotographGet/comment/addcomment?comment="+c);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -330,7 +336,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","picId="+picId);
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/picture/lista?id="+picId);
+                    URL url = new URL(urlAdress+"/PhotographGet/picture/lista?id="+picId);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
