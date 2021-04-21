@@ -280,11 +280,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","");
-<<<<<<< HEAD
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/getNickname?userId="+id);
-=======
-                    URL url = new URL(urlAdress+"/PhotographGet/user/getNickname?userId="+id1);
->>>>>>> 5eca40fe054aa94846824001806f0824af80da8e
+                    URL url = new URL(urlAdress+"/PhotographGet/user/getNickname?userId="+id);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -362,7 +358,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","");
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/comment/listcomment?picId="+picId);
+                    URL url = new URL(urlAdress+"/PhotographGet/comment/listcomment?picId="+picId);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
