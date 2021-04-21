@@ -45,4 +45,8 @@
     </style>
 
     <style name="Custom"></style>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#DDDDDD</item>
+        <item name="colorControlActivated">#DDDDDD</item>
+    </style>
 </resources>

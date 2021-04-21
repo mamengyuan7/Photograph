@@ -45,6 +45,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class DetailedActivity extends AppCompatActivity implements View.OnClickListener {
     private MultiImageView multiImageView;
     private GoodView mGoodView;
@@ -52,17 +54,23 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView hide_down;
     private EditText comment_content;
     private Button comment_send;
+    private ImageView back;
+    private TextView title;
+    private TextView typee;
+    private TextView nickName;
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
     private List<Commentt> data;
+    private List<Comment> listcomm = new ArrayList<>();
     private AdapterComment adapterComment;
     private List<String> imgs = new ArrayList<>();
     private Picture picture;
     private MultiImageView.OnItemClickListener mOnItemClickListener;
     private Comment comm = new Comment();
+    private Commentt commentt = new Commentt();
     private String name;
-    private int picId = 4;
+    private int picId = 7;
     private int userId = 1;
     
     private Handler handler = new Handler(){
@@ -71,6 +79,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             if(msg.what == 66){
                 super.handleMessage(msg);
                 name = (String)msg.obj;
+                nickName.setText(name);
                 Log.e("comm",name);
             }else if(msg.what == 26){
                 super.handleMessage(msg);
@@ -83,6 +92,8 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 Type type=new TypeToken<Picture>(){}.getType();
                 Gson gson=new Gson();
                 picture = gson.fromJson(info,type);
+                title.setText(picture.getTitle());
+                typee.setText(picture.getIntroduce());
                 String a = picture.getImgAddress();
                 Log.e("aaaa",a);
                 String[] path = a.split("--");
@@ -96,12 +107,25 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("是谁？",""+position);
                         Intent intent = new Intent(DetailedActivity.this,LargePic.class);
                         intent.putExtra("pos",position);
-                        intent.putExtra("pId",1);
+                        intent.putExtra("pId",picId);
                         intent.putExtra("address",imgs.get(position));
                         startActivity(intent);
                         finish();
                     }
                 });
+            }else if(msg.what == 51){
+                super.handleMessage(msg);
+                String info = (String)msg.obj;
+                Log.e("aaa",info);
+                Type type=new TypeToken<List<Comment>>(){}.getType();
+                Gson gson=new Gson();
+                listcomm = gson.fromJson(info,type);
+                for(int i = 0;i<listcomm.size();i++){
+                    getNickName(listcomm.get(i).getUserId());
+                    commentt.setName(name+"：");
+                    commentt.setContent(listcomm.get(i).getContent());
+                    Log.e("aaaa","123123123");
+                }
             }
 
         }
@@ -112,10 +136,24 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_detailed);
 
+        title = findViewById(R.id.de_title);
+        typee = findViewById(R.id.de_type);
+        nickName = findViewById(R.id.de_nickname);
+        back = findViewById(R.id.img_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //图片展示
         multiImageView = findViewById(R.id.multiImage);
 
+        SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
+        userId = p.getInt("user_id",0);
+
         listImg();
+
         /*imgs.add("https://file06.16sucai.com/2016/0613/8b7ab7ea218d6fbea16d75eda49bd9ca.jpg");
         imgs.add("https://file06.16sucai.com/2016/0328/f6de184de1f109750ed5d316c3bbd324.jpg");
         imgs.add("https://file06.16sucai.com/2016/0328/f6de184de1f109750ed5d316c3bbd324.jpg");
@@ -142,8 +180,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         //点赞功能
         mGoodView = new GoodView(this);
         initView1();
+        listcomment();
         //获取nickname
-        getNickName();
+        getNickName(userId);
     }
     //点赞点击事件
     public void collection(View view) {
@@ -216,7 +255,6 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
         }else{
             // 生成评论数据
-            Commentt commentt = new Commentt();
             commentt.setName(name+"：");
             commentt.setContent(comment_content.getText().toString());
             comm.setContent(comment_content.getText().toString());
@@ -236,17 +274,14 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-    private void getNickName(){
-        SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
-        int id = p.getInt("user_id",0);
-        Log.e("id值是：",id+"");
-        String id1 = String.valueOf(id);
+    private void getNickName(int userId){
+        String id = String.valueOf(userId);
         new Thread(){
             @Override
             public void run() {
                 try {
                     Log.e("数据是：","");
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/getNickname?userId="+id1);
+                    URL url = new URL(urlAdress+"/PhotographGet/user/getNickname?userId="+id);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -273,7 +308,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","");
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/comment/addcomment?comment="+c);
+                    URL url = new URL(urlAdress+"/PhotographGet/comment/addcomment?comment="+c);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -298,7 +333,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     Log.e("数据是：","picId="+picId);
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/picture/lista?id="+picId);
+                    URL url = new URL(urlAdress+"/PhotographGet/picture/lista?id="+picId);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -306,6 +341,32 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                     Log.e("pikaqiu","传过来了呢！");
                     Log.e("xx2",info);
                     wrapperMessage3(info);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+
+    private void listcomment(){
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Log.e("数据是：","");
+                    URL url = new URL(urlAdress+"/PhotographGet/comment/listcomment?picId="+picId);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.e("pikaqiu","传过来了呢！");
+                    Log.e("xx2",info);
+                    wrapperMessage2(info);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -335,6 +396,12 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         Message msg = Message.obtain();
         msg.obj = info;
         msg.what = 26;
+        handler.sendMessage(msg);
+    }
+    private void wrapperMessage2(String info) {
+        Message msg = Message.obtain();
+        msg.obj = info;
+        msg.what = 51;
         handler.sendMessage(msg);
     }
 }

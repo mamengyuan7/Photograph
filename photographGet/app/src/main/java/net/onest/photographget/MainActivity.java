@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PopupWindow mPopWindow;
     View popupWindowView;
     private SparseArray<Fragment> mFragmentSparseArray;
+    public static String urlAdress="http://192.168.43.65:8080";
 
 
     @Override
@@ -101,11 +102,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.image_zp:
                 Toast.makeText(this,"clicked conceal",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this,Login.class));
+                startActivity(new Intent(MainActivity.this,uploadPic.class));
                 mPopWindow.dismiss();
                 break;
             case R.id.image_bw:
                 Toast.makeText(this,"bowen",Toast.LENGTH_SHORT);
+                startActivity(new Intent(MainActivity.this,Login.class));
                 mPopWindow.dismiss();
                 break;
                 default:

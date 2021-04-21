@@ -32,6 +32,8 @@ import java.net.URLConnection;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class Register  extends AppCompatActivity implements View.OnClickListener {
     //手机号
     private EditText et_register_username;
@@ -210,7 +212,7 @@ public class Register  extends AppCompatActivity implements View.OnClickListener
             public void run() {
                 try {
                     Log.e("mm",client);
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/user/adduser?user=" + client);
+                    URL url = new URL(urlAdress+"/PhotographGet/user/adduser?user=" + client);
                     Log.e("mm1",client);
                     URLConnection conn = url.openConnection();
                     Log.e("mm2",client);

@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Message;
+=======
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+<<<<<<< HEAD
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+=======
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -35,6 +41,7 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import net.onest.photographget.entity.Huodong;
+<<<<<<< HEAD
 import net.onest.photographget.entity.Picture;
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
@@ -52,6 +59,11 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+=======
+import net.onest.photographget.entity.User;
+import net.onest.photographget.utils.DividerGridItemDecoration;
+
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +81,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     View view;
     View view1;
 
+<<<<<<< HEAD
     private EventBean eventBean;
     //创建eventBus对象
     private EventBus eventBus;
@@ -77,6 +90,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     private List<Picture> ren_pic=new ArrayList<>();
     private List<Picture> dong_pic=new ArrayList<>();
 
+=======
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     private Banner mBanner;
   //////分类
     private QMUITabSegment tabSegment;
@@ -107,8 +122,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -151,12 +169,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是banner对象："+mBanner);
         //图片资源
         int[] imageResourceID = new int[]{R.mipmap.one_photo,
+<<<<<<< HEAD
                 R.mipmap.p2,
                 R.mipmap.three_photo,
                 R.mipmap.pp4};
         List<Integer> imgeList = new ArrayList<>();
         //轮播标题
         String[] mtitle = new String[]{"", "", "", ""};
+=======
+                R.mipmap.two_photo,
+                R.mipmap.three_photo,
+                R.mipmap.four_photo};
+        List<Integer> imgeList = new ArrayList<>();
+        //轮播标题
+        String[] mtitle = new String[]{"图片1", "图片2", "图片3", "图片4"};
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
         List<String> titleList = new ArrayList<>();
 
         for (int i = 0; i < imageResourceID.length; i++) {
@@ -198,6 +225,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     @Override
     public void OnBannerClick(int position) {
         Toast.makeText(getActivity(), "你点击了第" + (position + 1) + "张轮播图", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+=======
+        Intent intent = new Intent(getActivity(),DetailedActivity.class);
+        startActivity(intent);
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     }
 
 
@@ -285,12 +317,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
        tabSegment=view1.findViewById(R.id.tabSegment);
        viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
         initData();
+<<<<<<< HEAD
        // pictures=initPicData();
+=======
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 
 
        photo_kinds();
 
     }
+<<<<<<< HEAD
 ///////初始化数据
     private void initData() {
         Picture picture1=new Picture();
@@ -347,6 +383,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
 
 
+=======
+
+    private void initData() {
+        User user1 = new User();
+       /* user1.setImg_up("111");
+        user1.setName("名字1");*/
+
+        User user2 = new User();
+       /* user2.setImg_up("222");
+        user2.setName("名字2");*/
+
+        User user3 = new User();
+      /*  user3.setImg_up("333");
+        user3.setName("名字3");*/
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+    }
+
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -361,6 +417,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             @NonNull
             @Override
             public Object instantiateItem(@NonNull final ViewGroup container, int position) {
+<<<<<<< HEAD
                 RecyclerView recyclerView = new RecyclerView(getContext());  
 if (position==0) {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -386,6 +443,10 @@ if (position==0) {
 
 }
 else if(position==2){
+=======
+                RecyclerView recyclerView = new RecyclerView(getContext());
+if (position==0) {
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
     gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
     recyclerView.setLayoutManager(gridLayoutManager);
@@ -592,4 +653,8 @@ else {
         return rootView;
     }*/
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
