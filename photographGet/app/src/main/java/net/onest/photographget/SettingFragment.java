@@ -60,7 +60,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
     private TextView setting_nickname;
     //个签
     private TextView setting_moto;
-
     private int value;
     private LayoutInflater mInflater;
     private TabLayout sliding_tabs;//小标题
@@ -102,12 +101,14 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 String info = (String) msg.obj;
+
                 Gson gson = new Gson();
                 User user = new User();
                 user = gson.fromJson(info, User.class);
                 mCollapsingToolbarLayout.setTitle(user.getNickName());
                 setting_nickname.setText(user.getNickName());
                 setting_moto.setText(user.getPers_signature());
+                text_title.setText(user.getNickName());
                 Log.e("测试",user.getNickName());
                 Log.e("测试",user.getPers_signature());
 
@@ -144,7 +145,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
             public void run() {
                 try {
                     //没改
-                   URL url = new URL(urlAdress+"/Catchtime/UserInfo?userId="+value);
+                   URL url = new URL(urlAdress+"/PhotographGet/user/getuser?id=" + value);
                     Log.e("发送完数据啦","OK");
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();

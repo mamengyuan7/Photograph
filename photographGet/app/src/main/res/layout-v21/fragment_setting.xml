@@ -126,13 +126,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="可乐加冰" />
+                        android:layout_marginTop="10dp" />
                     <TextView
                         android:id="@+id/setting_moto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="个签还没有更新哦.."
                         android:textSize="15dp"
                         android:textColor="@color/bg_press_material" />
                 </LinearLayout>

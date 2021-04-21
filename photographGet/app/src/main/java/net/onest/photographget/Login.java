@@ -83,10 +83,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 String info = (String)msg.obj;
-                Log.e("info",info);
+                Log.e("info-login",info);
                 if("输入错误".equals(info)){
                     Toast.makeText(getApplicationContext(),info,Toast.LENGTH_SHORT).show();
                 }else{
+                    Log.e("info-login1",info);
                     Gson gson=new Gson();
                     User usering = new User();
                     usering = gson.fromJson(info,User.class);
@@ -94,6 +95,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     SharedPreferences.Editor editor=p.edit();
                     editor.putInt("user_id",id);
                     editor.commit();
+                    Log.e("info-login2",info);
                     int a = p.getInt("user_id",0);
                     Log.e("yz",a+"");
                     Intent intent = new Intent(Login.this, MainActivity.class);
@@ -298,15 +300,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         User user = new User(num,pwd);
         Gson gson = new Gson();
         String client = gson.toJson(user);
+        Log.e("login验证",num);
         new Thread(){
             @Override
             public void run() {
                 try {
+                    Log.e("login验证1",num);
                     URL url = new URL(urlAdress+"/PhotographGet/user/ifuser?client=" + client);
+                    Log.e("login验证2",client);
                     URLConnection conn = url.openConnection();
+                    Log.e("login验证3",num);
                     InputStream in = conn.getInputStream();
+                    Log.e("login验证4",num);
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    Log.e("login验证5",num);
                     String info = reader.readLine();
+                    Log.e("login验证6",info);
                     if(null!=info) {
                         Log.e("ww", info);
                         wrapperMessage(info);
