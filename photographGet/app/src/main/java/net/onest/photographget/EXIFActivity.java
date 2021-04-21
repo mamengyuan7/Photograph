@@ -54,6 +54,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class EXIFActivity extends AppCompatActivity {
     private ImageView pImage;
     private TextView brand;
@@ -161,7 +163,7 @@ public class EXIFActivity extends AppCompatActivity {
                 String f = "1";
                 try {
                     Log.e("数据是：","picId="+picId+",flag="+flag);
-                    URL url = new URL("http://192.168.43.169:8080/PhotographGet/pictureDetail/list?picId="+picId+"&flag="+flag);
+                    URL url = new URL(urlAdress+"/PhotographGet/pictureDetail/list?picId="+picId+"&flag="+flag);
                     URLConnection conn = url.openConnection();
                     InputStream in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));

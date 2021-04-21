@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PopupWindow mPopWindow;
     View popupWindowView;
     private SparseArray<Fragment> mFragmentSparseArray;
+    public static String urlAdress="http://192.168.2.178:8080";
 
 
     @Override
