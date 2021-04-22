@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 
+import net.onest.photographget.OSS.MyLog;
+import net.onest.photographget.OSS.UploadHelper;
 import net.onest.photographget.adapter.ImageAdapter;
 import net.onest.photographget.entity.Picture;
 
@@ -36,6 +38,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static net.onest.photographget.MainActivity.urlAdress;
 
@@ -51,6 +55,9 @@ public class uploadPic extends AppCompatActivity {
     private EditText name;
     private EditText introduce;
     private Picture picture;
+    private ArrayList<String> images = new ArrayList<>();
+
+
 
 
     private Handler handler = new Handler(){
@@ -68,6 +75,7 @@ public class uploadPic extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_pic);
+        ButterKnife.bind(this);
 
         back = findViewById(R.id.back_main);
         putin = findViewById(R.id.put);
@@ -109,7 +117,7 @@ public class uploadPic extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_WRITE_EXTERNAL_REQUEST_CODE);
         }
-        putin.setOnClickListener(new View.OnClickListener() {
+       /* putin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 picture.setImgAddress("https://file06.16sucai.com/2016/0613/8b7ab7ea218d6fbea16d75eda49bd9ca.jpg");
@@ -120,13 +128,14 @@ public class uploadPic extends AppCompatActivity {
                 picture.setUserId(id);
                 savePic(picture);
             }
-        });
+        });*/
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && data != null) {
-            ArrayList<String> images = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            images = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             Log.e("88888",images.get(0));
             boolean isCameraImage = data.getBooleanExtra(ImageSelector.IS_CAMERA_IMAGE, false);
 //            Log.d("ImageSelector", "是否是拍照图片：" + isCameraImage);
@@ -151,6 +160,23 @@ public class uploadPic extends AppCompatActivity {
                 //拒绝权限。
             }
         }
+    }
+    @OnClick(R.id.put)
+    public void uploadTest() {
+        UploadHelper uploadHelper = new UploadHelper();
+        String uploaduel = uploadHelper.uploadImage(images.get(0));
+        //这个方法会返回OSS上图片的路径
+        MyLog.e("xxxx----testurl:" + uploaduel);
+        String path = uploaduel;
+        Log.e("xxx",path);
+        picture = new Picture();
+        picture.setImgAddress(path);
+        picture.setIntroduce(introduce.getText().toString());
+        picture.setTitle(name.getText().toString());
+        SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
+        int id = p.getInt("user_id",0);
+        picture.setUserId(id);
+        savePic(picture);
     }
 
     private void savePic(Picture picture){

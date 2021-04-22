@@ -103,10 +103,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     private ListView listView_h;
     private Huodong_adpter aaa;
 
-
-
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
