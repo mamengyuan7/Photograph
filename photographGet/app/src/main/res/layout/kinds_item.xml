@@ -35,8 +35,4 @@
             android:layout_height="wrap_content"
             android:text=""/>
     </LinearLayout>
-<<<<<<< HEAD
 </LinearLayout>
-=======
-</LinearLayout>
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
