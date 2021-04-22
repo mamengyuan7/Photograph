@@ -30,8 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 
+import net.onest.photographget.OSS.MyLog;
+import net.onest.photographget.OSS.UploadHelper;
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.ImageUtils;
 
@@ -50,6 +53,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.baidu.mapapi.BMapManager.getContext;
@@ -79,11 +84,16 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
     private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
     private CircleImageView head_image;
+    private String imagePath;
+
+    private String imageHead;
     //-------
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_personal);
+
+        ButterKnife.bind(this);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
@@ -142,7 +152,9 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
                     //修改头像
                 case R.id.setphoto:
                     //显示修改头像的对话框
-                    showChoosePicDialog();
+//                    showChoosePicDialog();
+                    Intent intent = new Intent(SettingPersonal.this,uploadheadPic.class);
+                    startActivity(intent);
                     break;
                     //修改头像：如上
                 case R.id.head_image:
@@ -162,6 +174,7 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
                     case CHOOSE_PICTURE: // 选择本地照片
                         Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
                         openAlbumIntent.setType("image/*");
+                        //选择一张照片，查看照片地址
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         break;
                     case TAKE_PICTURE: // 拍照
@@ -200,7 +213,20 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) { // 如果返回码是可以用的
+        if (resultCode == RESULT_OK && data!=null) {
+            Log.e("ceshi1","zoulema");
+            Bundle extras = data.getExtras();
+            Log.e("ceshi2","zoulema");
+            if (extras != null) {
+                Log.e("ceshi3","zoulema");
+                Bitmap photo = extras.getParcelable("data");
+                Log.e("ceshi4","zoulema");
+                imagePath = ImageUtils.savePhoto(photo, Environment
+                        .getExternalStorageDirectory().getAbsolutePath(), String
+                        .valueOf(System.currentTimeMillis()));
+                Log.e("imagePath", imagePath+"");;
+            }
+            /*// 如果返回码是可以用的
             switch (requestCode) {
                 case TAKE_PICTURE:
                     //保存到阿里云上
@@ -209,18 +235,28 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
                     break;
                 case CHOOSE_PICTURE:
                     //保存到阿里云上
+                    UploadHelper uploadHelper = new UploadHelper();
+                    String uploaduel = uploadHelper.uploadPortrait("/storage/emulated/0/1619079063780.png");
+                    //这个方法会返回OSS上图片的路径
+                    MyLog.e("xxxxyy----testurl:" + uploaduel);
+                    String path = uploaduel;
+                    Log.e("xxx",path);
                     Toast.makeText(this,"baocun",Toast.LENGTH_SHORT).show();
-                    /*startPhotoZoom(data.getData()); // 开始对图片进行裁剪处理*/
+                  *//*  Toast.makeText(this,"baocun",Toast.LENGTH_SHORT).show();*//*
+                    *//*startPhotoZoom(data.getData()); // 开始对图片进行裁剪处理*//*
                     break;
                 case CROP_SMALL_PICTURE:
-                    /*if (data != null) {
+                    if (data != null) {
                         setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
-                    }*/
+                    }
                     //显示图片
                     break;
-            }
+            }*/
         }
     }
+
+
+
 
     protected void startPhotoZoom(Uri uri) {
         if (uri == null) {
@@ -250,7 +286,6 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             Log.d(TAG,"setImageToView:"+photo);
-            photo = ImageUtils.toRoundBitmap(photo); // 这个时候的图片已经被处理成圆形的了*/
             head_image.setImageBitmap(photo);
             uploadPic(photo);
         }
@@ -260,7 +295,7 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
         // ... 可以在这里把Bitmap转换成file，然后得到file的url，做文件上传操作
         // 注意这里得到的图片已经是圆形图片了
         // bitmap是没有做个圆形处理的，但已经被裁剪了
-        String imagePath = ImageUtils.savePhoto(bitmap, Environment
+        imagePath = ImageUtils.savePhoto(bitmap, Environment
                 .getExternalStorageDirectory().getAbsolutePath(), String
                 .valueOf(System.currentTimeMillis()));
         Log.e("imagePath", imagePath+"");

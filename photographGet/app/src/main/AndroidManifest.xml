@@ -74,7 +74,8 @@
         <activity android:name=".Register" />
         <activity android:name=".LargePic"/>
         <activity android:name=".utils.ResetPwd"/>
-        <activity android:name=".uploadPic"/>
+        <activity android:name=".uploadPic" />
+        <activity android:name=".uploadheadPic"></activity>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="kjB4GHHznVrl9RVR5EG8S8tsMEFagt8T" />

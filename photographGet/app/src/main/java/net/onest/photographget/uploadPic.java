@@ -57,9 +57,6 @@ public class uploadPic extends AppCompatActivity {
     private Picture picture;
     private ArrayList<String> images = new ArrayList<>();
 
-
-
-
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -67,6 +64,8 @@ public class uploadPic extends AppCompatActivity {
             String info = (String)msg.obj;
             if(info.equals("添加成功！")){
                 Log.e("123","添加成功！");
+                Intent intent = new Intent(uploadPic.this,MainActivity.class);
+                startActivity(intent);
             }
         }
     };
@@ -164,10 +163,18 @@ public class uploadPic extends AppCompatActivity {
     @OnClick(R.id.put)
     public void uploadTest() {
         UploadHelper uploadHelper = new UploadHelper();
-        String uploaduel = uploadHelper.uploadImage(images.get(0));
-        //这个方法会返回OSS上图片的路径
-        MyLog.e("xxxx----testurl:" + uploaduel);
-        String path = uploaduel;
+        String path = "";
+        if(images.size()==1){
+            String uploaduel = uploadHelper.uploadImage(images.get(0));
+            path = uploaduel;
+        }else {
+            for (int i = 0;i<images.size();i++){
+                String uploaduel = uploadHelper.uploadImage(images.get(i));
+                //这个方法会返回OSS上图片的路径
+                MyLog.e("xxxx----testurl:" + uploaduel);
+                path =path+"--"+uploaduel;
+            }
+        }
         Log.e("xxx",path);
         picture = new Picture();
         picture.setImgAddress(path);
