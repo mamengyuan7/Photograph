@@ -6,6 +6,7 @@ public class Picture {
     private int userId;
     private String title;
     private String introduce;
+    private int typeId;
     public int getId() {
         return id;
     }
@@ -35,5 +36,13 @@ public class Picture {
     }
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 }

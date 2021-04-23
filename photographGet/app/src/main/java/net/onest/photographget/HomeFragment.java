@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Message;
-=======
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-<<<<<<< HEAD
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-=======
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -41,7 +35,6 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import net.onest.photographget.entity.Huodong;
-<<<<<<< HEAD
 import net.onest.photographget.entity.Picture;
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
@@ -49,6 +42,8 @@ import net.onest.photographget.utils.EventBean;
 import net.onest.photographget.utils.QueryInfo;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,11 +54,6 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-=======
-import net.onest.photographget.entity.User;
-import net.onest.photographget.utils.DividerGridItemDecoration;
-
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
 import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,19 +71,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     View view;
     View view1;
 
-<<<<<<< HEAD
     private EventBean eventBean;
     //创建eventBus对象
     private EventBus eventBus;
+
     private  List<Picture> pictures=new ArrayList<>();
     private  List<Picture> fen_pic=new ArrayList<>();
     private List<Picture> ren_pic=new ArrayList<>();
     private List<Picture> dong_pic=new ArrayList<>();
 
-=======
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     private Banner mBanner;
-  //////分类
+    //////分类
     private QMUITabSegment tabSegment;
     private ViewPager viewpager_showphoto;
     private Photo_adapter adapter;
@@ -119,14 +107,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     private ListView listView_h;
     private Huodong_adpter aaa;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 2:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 3:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 4:
+                    adapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
 
 
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -134,13 +135,128 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         context=getContext();
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-         //listView_h=view1.findViewById(R.id.listview_item);
+        //listView_h=view1.findViewById(R.id.listview_item);
 
         System.out.println("这是viewpage对象："+viewPager);
         initView();
-       // Huodong_init();
+        // Huodong_init();
+         //initData();
+        //初始化数据
+        pictures=initPicData();
+        initTypePicData("1");
+        initTypePicData("2");
+        initTypePicData("3");
 
-         return view;
+
+        return view;
+    }
+
+    private List<Picture> initPicData() {
+        List<Picture> pictures=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfos();
+        return pictures;
+    }
+
+    private List<Picture> initTypePicData(String id){
+        List<Picture> pics=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfosByTypeId(id);
+        return pics;
+
+    }
+
+    /////////////////////////////////////////////////////////////////ecentbus监听方法
+    @Subscribe(threadMode = ThreadMode.ASYNC, sticky = true)
+    public void onEventBeanStikyEvent(EventBean eventBean){
+        String res;
+        Gson gson;
+        Message message = null;
+        switch (eventBean.getWhat()){
+            case 1://
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> infos=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                for (Picture picture:infos){
+//                    Log.e("解析后的数据",teacher.getTeaName());
+                    pictures.add(picture);
+                }
+//                Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=1;
+                message.obj=res;
+
+                break;
+            case 2:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info){
+                    Log.e("解析后的数据",picture.getTitle());
+                    fen_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=2;
+                message.obj=res;
+
+                break;
+            case 3:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info3=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info3){
+                    Log.e("解析后的数据",picture.getTitle());
+                    ren_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=3;
+                message.obj=res;
+
+                break;
+            case 4:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info4=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info4){
+                    Log.e("解析后的数据",picture.getTitle());
+                    dong_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=4;
+                message.obj=res;
+
+                break;
+
+
+        }
+        handler.sendMessage(message);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        eventBus.unregister(eventBus);
     }
 
     private void Huodong_init() {
@@ -158,9 +274,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         huodongs.add(h1);
         huodongs.add(h2);
 //
-         aaa=new Huodong_adpter(huodongs,R.layout.home_1_item,getContext());
-         System.out.println("这是aaa："+aaa);
-         listView_h.setAdapter(aaa);
+        aaa=new Huodong_adpter(huodongs,R.layout.home_1_item,getContext());
+        System.out.println("这是aaa："+aaa);
+        listView_h.setAdapter(aaa);
     }
 
 
@@ -169,21 +285,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是banner对象："+mBanner);
         //图片资源
         int[] imageResourceID = new int[]{R.mipmap.one_photo,
-<<<<<<< HEAD
                 R.mipmap.p2,
                 R.mipmap.three_photo,
                 R.mipmap.pp4};
         List<Integer> imgeList = new ArrayList<>();
         //轮播标题
         String[] mtitle = new String[]{"", "", "", ""};
-=======
-                R.mipmap.two_photo,
-                R.mipmap.three_photo,
-                R.mipmap.four_photo};
-        List<Integer> imgeList = new ArrayList<>();
-        //轮播标题
-        String[] mtitle = new String[]{"图片1", "图片2", "图片3", "图片4"};
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
         List<String> titleList = new ArrayList<>();
 
         for (int i = 0; i < imageResourceID.length; i++) {
@@ -225,11 +332,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     @Override
     public void OnBannerClick(int position) {
         Toast.makeText(getActivity(), "你点击了第" + (position + 1) + "张轮播图", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
-        Intent intent = new Intent(getActivity(),DetailedActivity.class);
-        startActivity(intent);
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     }
 
 
@@ -310,24 +412,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         //将滚动条的初始位置设置成与左边界间隔一个offset
         scrollbar.setImageMatrix(matrix);
 
-       mBanner=view1.findViewById(R.id.banner);
-       lunbo();
+        mBanner=view1.findViewById(R.id.banner);
+        lunbo();
 
 
-       tabSegment=view1.findViewById(R.id.tabSegment);
-       viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
-        initData();
-<<<<<<< HEAD
-       // pictures=initPicData();
-=======
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
+        tabSegment=view1.findViewById(R.id.tabSegment);
+        viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
 
 
-       photo_kinds();
+
+        photo_kinds();
 
     }
-<<<<<<< HEAD
-///////初始化数据
+    ///////初始化数据
     private void initData() {
         Picture picture1=new Picture();
         picture1.setId(1);
@@ -370,39 +467,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     }
 
-    private List<Picture> initPicData() {
-         List<Picture> pictures=new ArrayList<>();
-        eventBus=EventBus.getDefault();
-        if(!eventBus.isRegistered(HomeFragment.this)) {
-            eventBus.register(HomeFragment.this);
-        }
-        new QueryInfo().getPicInfos();
-        return pictures;
-    }
 
 
 
 
-=======
 
-    private void initData() {
-        User user1 = new User();
-       /* user1.setImg_up("111");
-        user1.setName("名字1");*/
-
-        User user2 = new User();
-       /* user2.setImg_up("222");
-        user2.setName("名字2");*/
-
-        User user3 = new User();
-      /*  user3.setImg_up("333");
-        user3.setName("名字3");*/
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-    }
-
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -417,61 +486,56 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             @NonNull
             @Override
             public Object instantiateItem(@NonNull final ViewGroup container, int position) {
-<<<<<<< HEAD
-                RecyclerView recyclerView = new RecyclerView(getContext());  
-if (position==0) {
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-    recyclerView.setLayoutManager(gridLayoutManager);
-    //设置Adapter
-    //teachers=initData();
-    adapter = new Photo_adapter(pictures, R.layout.kinds_item, context);
-    recyclerView.setAdapter(adapter);
-    //设置分隔线
-    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
-}else if(position==1){
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-    recyclerView.setLayoutManager(gridLayoutManager);
-    //设置Adapter
-    //teachers=initData();
-
-    adapter = new Photo_adapter(fen_pic, R.layout.kinds_item, context);
-    recyclerView.setAdapter(adapter);
-    //设置分隔线
-    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
-
-}
-else if(position==2){
-=======
                 RecyclerView recyclerView = new RecyclerView(getContext());
-if (position==0) {
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-    recyclerView.setLayoutManager(gridLayoutManager);
-    //设置Adapter
-    //teachers=initData();
+                if (position==0) {
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    //设置Adapter
+                    //teachers=initData();
+                    adapter = new Photo_adapter(pictures, R.layout.kinds_item, context);
+                    recyclerView.setAdapter(adapter);
+                    //设置分隔线
+                    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+                }else if(position==1){
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    //设置Adapter
+                    //teachers=initData();
 
-    adapter = new Photo_adapter(ren_pic, R.layout.kinds_item, context);
-    recyclerView.setAdapter(adapter);
-    //设置分隔线
-    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+                    adapter = new Photo_adapter(fen_pic, R.layout.kinds_item, context);
+                    recyclerView.setAdapter(adapter);
+                    //设置分隔线
+                    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
 
-}
-else {
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-    recyclerView.setLayoutManager(gridLayoutManager);
-    //设置Adapter
-    //teachers=initData();
+                }
+                else if(position==2){
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    //设置Adapter
+                    //teachers=initData();
 
-    adapter = new Photo_adapter(dong_pic, R.layout.kinds_item, context);
-    recyclerView.setAdapter(adapter);
-    //设置分隔线
-    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+                    adapter = new Photo_adapter(ren_pic, R.layout.kinds_item, context);
+                    recyclerView.setAdapter(adapter);
+                    //设置分隔线
+                    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
 
-}
+                }
+                else {
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                    gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    //设置Adapter
+                    //teachers=initData();
+
+                    adapter = new Photo_adapter(dong_pic, R.layout.kinds_item, context);
+                    recyclerView.setAdapter(adapter);
+                    //设置分隔线
+                    recyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
+
+                }
                 container.addView(recyclerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 return recyclerView;
 
@@ -515,7 +579,7 @@ else {
 
             @Override
             public void onTabSelected(int index) {
-               // tabSegment.getTab(index).setTextColor(normalColor,selectColor);
+                // tabSegment.getTab(index).setTextColor(normalColor,selectColor);
 
 
 
@@ -653,8 +717,5 @@ else {
         return rootView;
     }*/
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> f9ec502bba7829754972c5ded469ae20a84004ae
