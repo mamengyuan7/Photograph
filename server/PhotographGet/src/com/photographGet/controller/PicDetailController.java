@@ -26,17 +26,51 @@ public class PicDetailController {
 	private PicDetailService picDetailService;
 	
 	@RequestMapping("/add")
-	public void addPicDetail(@RequestParam String picDetail) {
+	public String addPicDetail(@RequestParam String picDetail,HttpServletResponse rep) {
+		rep.setCharacterEncoding("UTF-8");
+		rep.setContentType("text/html;charset=UTF-8");
 		Gson gson = new Gson();
 		PictureDetail pDetail = gson.fromJson(picDetail, PictureDetail.class);
+		if(pDetail.getBrand()==null) {
+			pDetail.setBrand("--");
+		}
+		if(pDetail.getType()==null) {
+			pDetail.setType("--");
+		}
+		if(pDetail.getPtype()==null) {
+			pDetail.setPtype("--");
+		}
+		if(pDetail.getFocalLength()==null) {
+			pDetail.setFocalLength("--");
+		}
+		if(pDetail.getCarmeraLen()==null) {
+			pDetail.setCarmeraLen("--");
+		}
+		if(pDetail.getIso()==null) {
+			pDetail.setIso("--");
+		}
+		if(pDetail.getTime()==null) {
+			pDetail.setTime("--");
+		}
 		picDetailService.savePicDetail(pDetail);
+		PrintWriter writer;
+		try {
+			writer = rep.getWriter();
+			writer.println("添加成功！");
+		    writer.flush();
+		    writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@RequestMapping("/list")
 	public String list(@RequestParam String picId,@RequestParam String flag,Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");
 		rep.setContentType("text/html;charset=UTF-8");
-		System.out.println("ok");
+		System.out.println("传过来了！");
 		Gson gson=new Gson();
 		System.out.println(picId);
 		System.out.println(flag);
@@ -63,7 +97,7 @@ public class PicDetailController {
 public String list(@RequestParam String flag,Model model,HttpServletRequest req,HttpServletResponse rep) {
 	rep.setCharacterEncoding("UTF-8");
 	rep.setContentType("text/html;charset=UTF-8");
-	System.out.println("ok");
+	System.out.println("接收到了！");
 	Gson gson=new Gson();
 	System.out.println(flag);
 	int f = Integer.parseInt(flag.trim());

@@ -30,7 +30,7 @@ public class PictureService {
 	public List<Picture> findByUserId(int userId){
 		return this.pictureDao.findByUserId(userId);
 	}
-                @Transactional(readOnly = false)
+	@Transactional(readOnly = false)
 	public Picture findById(int id){
 		return this.pictureDao.findById(id);
 	}
