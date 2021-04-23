@@ -53,10 +53,10 @@ public class SettingDetail extends AppCompatActivity{
                     startActivity(intent1);
                     break;
                case R.id.logout:
-                   SharedPreferences preferences = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE);
+                  /* SharedPreferences preferences = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE);*/
                    SharedPreferences.Editor editor = p.edit();
                    editor.clear();
-                   preferences.edit().putBoolean("isFirstIn", true).commit();
+                   /*preferences.edit().putBoolean("isFirstIn", true).commit();*/
                    editor.commit();
                    int a = p.getInt("user_id", 0);
                    Log.e("zy",a+"");

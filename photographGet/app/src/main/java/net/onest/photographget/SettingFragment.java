@@ -101,7 +101,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 String info = (String) msg.obj;
-
                 Gson gson = new Gson();
                 User user = new User();
                 user = gson.fromJson(info, User.class);
@@ -136,7 +135,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         return view;
     }
-
     private void sendMessage() {
         Log.e("发数据啦","准备！");
         Log.e("id",p+"");
@@ -173,7 +171,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener, O
         msg.obj = info;
         handler.sendMessage(msg);
     }
-
     private void init() {
 
         sliding_tabs=view.findViewById(R.id.sliding_tabs);

@@ -17,6 +17,10 @@ public class User {
         this.password = password;
         this.telephone = telephone;
     }
+    public User(int id,String nickName){
+        this.id=id;
+        this.nickName=nickName;
+    }
 
     public int getId() {
         return id;

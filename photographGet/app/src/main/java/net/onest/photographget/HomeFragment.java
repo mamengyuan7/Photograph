@@ -40,11 +40,13 @@ import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
 import net.onest.photographget.utils.EventBean;
 import net.onest.photographget.utils.QueryInfo;
-
 import org.greenrobot.eventbus.EventBus;
+<<<<<<< HEAD
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -127,7 +129,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         }
     };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -140,6 +145,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
+<<<<<<< HEAD
          //initData();
         //初始化数据
         pictures=initPicData();
@@ -257,6 +263,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     public void onDestroy() {
         super.onDestroy();
         eventBus.unregister(eventBus);
+=======
+
+        return view;
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     }
 
     private void Huodong_init() {
@@ -418,9 +428,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         tabSegment=view1.findViewById(R.id.tabSegment);
         viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
+<<<<<<< HEAD
 
 
 
+=======
+        initData();
+        // pictures=initPicData();
+
+
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
         photo_kinds();
 
     }
@@ -467,11 +484,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     }
 
+<<<<<<< HEAD
+=======
+    private List<Picture> initPicData() {
+        List<Picture> pictures=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfos();
+        return pictures;
+    }
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -717,5 +749,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         return rootView;
     }*/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 }

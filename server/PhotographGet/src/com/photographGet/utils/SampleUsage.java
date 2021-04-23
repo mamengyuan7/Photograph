@@ -96,6 +96,7 @@ public class SampleUsage {
         OutputStream os = null;
         try {
             file = File.createTempFile("net_url", fileName);
+            System.out.println(file.getAbsolutePath());
             //����
             urlfile = new URL(url);
             inStream = urlfile.openStream();
