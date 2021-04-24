@@ -10,9 +10,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.donkingliang.imageselector.entry.Image;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 

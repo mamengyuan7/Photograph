@@ -41,6 +41,12 @@ import net.onest.photographget.utils.DividerGridItemDecoration;
 import net.onest.photographget.utils.EventBean;
 import net.onest.photographget.utils.QueryInfo;
 import org.greenrobot.eventbus.EventBus;
+<<<<<<< HEAD
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +76,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     private EventBean eventBean;
     //创建eventBus对象
     private EventBus eventBus;
+
     private  List<Picture> pictures=new ArrayList<>();
     private  List<Picture> fen_pic=new ArrayList<>();
     private List<Picture> ren_pic=new ArrayList<>();
@@ -102,7 +109,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     private ListView listView_h;
     private Huodong_adpter aaa;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 2:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 3:
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 4:
+                    adapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -115,8 +145,128 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
+<<<<<<< HEAD
+         //initData();
+        //初始化数据
+        pictures=initPicData();
+        initTypePicData("1");
+        initTypePicData("2");
+        initTypePicData("3");
+
 
         return view;
+    }
+
+    private List<Picture> initPicData() {
+        List<Picture> pictures=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfos();
+        return pictures;
+    }
+
+    private List<Picture> initTypePicData(String id){
+        List<Picture> pics=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfosByTypeId(id);
+        return pics;
+
+    }
+
+    /////////////////////////////////////////////////////////////////ecentbus监听方法
+    @Subscribe(threadMode = ThreadMode.ASYNC, sticky = true)
+    public void onEventBeanStikyEvent(EventBean eventBean){
+        String res;
+        Gson gson;
+        Message message = null;
+        switch (eventBean.getWhat()){
+            case 1://
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> infos=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                for (Picture picture:infos){
+//                    Log.e("解析后的数据",teacher.getTeaName());
+                    pictures.add(picture);
+                }
+//                Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=1;
+                message.obj=res;
+
+                break;
+            case 2:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info){
+                    Log.e("解析后的数据",picture.getTitle());
+                    fen_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=2;
+                message.obj=res;
+
+                break;
+            case 3:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info3=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info3){
+                    Log.e("解析后的数据",picture.getTitle());
+                    ren_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=3;
+                message.obj=res;
+
+                break;
+            case 4:
+                res=eventBean.getMsg();
+                //解析
+                gson=new Gson();
+                //假设现在为刷新
+                List<Picture> info4=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
+                // teachers.clear();
+                for (Picture picture:info4){
+                    Log.e("解析后的数据",picture.getTitle());
+                    dong_pic.add(picture);
+                }
+                //Log.e("测试",""+teachers.size());
+                message=new Message();
+                message.what=4;
+                message.obj=res;
+
+                break;
+
+
+        }
+        handler.sendMessage(message);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        eventBus.unregister(eventBus);
+=======
+
+        return view;
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     }
 
     private void Huodong_init() {
@@ -278,10 +428,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         tabSegment=view1.findViewById(R.id.tabSegment);
         viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
+<<<<<<< HEAD
+
+
+
+=======
         initData();
         // pictures=initPicData();
 
 
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
         photo_kinds();
 
     }
@@ -328,6 +484,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
     }
 
+<<<<<<< HEAD
+=======
     private List<Picture> initPicData() {
         List<Picture> pictures=new ArrayList<>();
         eventBus=EventBus.getDefault();
@@ -337,10 +495,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         new QueryInfo().getPicInfos();
         return pictures;
     }
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 
 
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -586,4 +749,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         return rootView;
     }*/
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 }

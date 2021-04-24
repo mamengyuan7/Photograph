@@ -6,7 +6,11 @@ public class Picture {
     private int userId;
     private String title;
     private String introduce;
+<<<<<<< HEAD
 
+=======
+    private int typeId;
+>>>>>>> 7bbc011a00ac5f0ff21a401d0ea02914467dd27e
     public int getId() {
         return id;
     }
@@ -47,6 +51,7 @@ public class Picture {
         this.introduce = introduce;
     }
 
+<<<<<<< HEAD
     @Override
     public String toString() {
         return "Picture{" +
@@ -56,5 +61,13 @@ public class Picture {
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
                 '}';
+=======
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+>>>>>>> 7bbc011a00ac5f0ff21a401d0ea02914467dd27e
     }
 }

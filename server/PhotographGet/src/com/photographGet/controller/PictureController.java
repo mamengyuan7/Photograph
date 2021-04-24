@@ -1,4 +1,4 @@
- package com.photographGet.controller;
+package com.photographGet.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +37,7 @@ public class PictureController {
 		Gson gson = new Gson();
 		Picture pic = gson.fromJson(picture, Picture.class);
 		pictureService.savePicture(pic);
-		List<Picture> ps = pictureService.findAllPicture();
-		int num = ps.size();
-		System.out.println("num"+num);
-		PictureDetail pictureDetail = new PictureDetail();
+		/*PictureDetail pictureDetail = new PictureDetail();
 		String path = pic.getImgAddress();
 		String[] p = path.split("--");
 		
@@ -77,11 +74,11 @@ public class PictureController {
 			pictureDetail.setFlag(i);
 			pictureDetail.setAddress(p[i]);
 			picDetailService.savePicDetail(pictureDetail);
-		}
+		}*/
 		PrintWriter writer;
 		try {
 			writer = rep.getWriter();
-			writer.println("ok");
+			writer.println("添加成功！");
 		    writer.flush();
 		    writer.close();
 		} catch (IOException e) {
@@ -90,7 +87,26 @@ public class PictureController {
 		}
 		return null;
 	}
-	
+	@RequestMapping("/findnum")
+	public String findnum(HttpServletResponse rep) {
+		rep.setCharacterEncoding("UTF-8");
+		rep.setContentType("text/html;charset=UTF-8");
+		List<Picture> ps = pictureService.findAllPicture();
+		int num = ps.size();
+		System.out.println("num是："+num);
+		String n = num+"";
+		PrintWriter writer;
+		try {
+			writer = rep.getWriter();
+			writer.println(n);
+		    writer.flush();
+		    writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@RequestMapping("/listall")
 	public String listall(Model model,HttpServletRequest req,HttpServletResponse rep) {
 		rep.setCharacterEncoding("UTF-8");

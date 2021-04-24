@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PopupWindow mPopWindow;
     View popupWindowView;
     private SparseArray<Fragment> mFragmentSparseArray;
+<<<<<<< HEAD
     public static String urlAdress="http://192.168.43.65:8080";
+=======
+    public static String urlAdress="http://192.168.137.159:8080";
+>>>>>>> 7bbc011a00ac5f0ff21a401d0ea02914467dd27e
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

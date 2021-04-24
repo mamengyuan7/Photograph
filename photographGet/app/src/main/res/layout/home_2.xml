@@ -15,8 +15,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            app:srcCompat="@drawable/qmui_icon_tip_new"
-            tools:srcCompat="@drawable/qmui_icon_tip_new"></ImageView>
+            ></ImageView>
         <TextView
             android:textColor="@color/white"
             android:text="新人榜"
