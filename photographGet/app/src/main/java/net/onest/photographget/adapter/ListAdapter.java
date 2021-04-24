@@ -1,6 +1,7 @@
 package net.onest.photographget.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -11,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+
+import net.onest.photographget.DetailedActivity;
 import net.onest.photographget.R;
 import net.onest.photographget.entity.Picture;
 import net.onest.photographget.entity.User;
@@ -45,12 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             image_first=itemView.findViewById(R.id.image_first);
             picture_title=itemView.findViewById(R.id.picture_title);
             picture_introduce=itemView.findViewById(R.id.picture_introduce);
-            image_first.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
         }
     }
     public ListAdapter(List<Picture> pictureList, Context context){
@@ -87,65 +86,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             }
         }else {
             list.add(imagejson);
-
         }
         Log.e("tupianfen",picture.getTitle()+picture.getIntroduce()+list.get(0).toString());
         imagePath=list.get(0);
         Glide.with(context).load(imagePath).into(holder.image_first);
 
-    }
-    private void getPicBitmap(String imagePath) {
-        new Thread() {
-            private HttpURLConnection conn;
-            private Bitmap bitmap;
-            public void run() {
-                // 连接服务器 get 请求 获取图片
-                try {
-                    //创建URL对象
-                    Log.e("ppppp",imagePath);
-                    URL url = new URL(imagePath);
-                    // 根据url 发送 http的请求
-                    conn = (HttpURLConnection) url.openConnection();
-                    // 设置请求的方式
-                    conn.setRequestMethod("GET");
-                    //设置超时时间
-                    conn.setConnectTimeout(5000);
-                    // 得到服务器返回的响应码
-                    int code = conn.getResponseCode();
-                    //请求网络成功后返回码是200
-                    if (code == 200) {
-                        //获取输入流
-                        InputStream is = conn.getInputStream();
-                        //将流转换成Bitmap对象
-                        bitmap = BitmapFactory.decodeStream(is);
-                        //将更改主界面的消息发送给主线程
-                        Message msg = new Message();
-                        msg.what = 62;
-                        msg.obj = bitmap;
-                        handler.sendMessage(msg);
-                    } else {
-                        //返回码不等于200 请求服务器失败
-                        Message msg = new Message();
-                        msg.what = 404;
-                        handler.sendMessage(msg);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Message msg = new Message();
-                    msg.what = 404;
-                    handler.sendMessage(msg);
-                }
-                //关闭连接
-                conn.disconnect();
+        holder.image_first.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.putExtra("picid",picture.getId());
+                intent.setClass(context, DetailedActivity.class);
+                context.startActivity(intent);
+
+
             }
-        }.start();
+        });
+
+
     }
-    private void wrapperMessage(String info) {
-        Message msg = Message.obtain();
-        msg.what=60;
-        msg.obj = info;
-        handler.sendMessage(msg);
-    }
+
 
     @Override
     public int getItemCount() {
