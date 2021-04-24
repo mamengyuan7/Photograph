@@ -66,9 +66,8 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
     private String new_nickname;
     private ImageView setting_back1;
     private PopupWindow mPopWindow;
-    private SharedPreferences p;
     private Handler handler;
-
+    private SharedPreferences p;
     //设置头像
     private LinearLayout setphoto;
     //设置背景图
@@ -92,14 +91,15 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_personal);
-
+        p=getSharedPreferences("user",MODE_PRIVATE);
+        value=p.getInt("user_id",0);
+        Log.e("iddddd",value+"");
         ButterKnife.bind(this);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
-       /* p=getContext().getSharedPreferences("user", Context.MODE_PRIVATE);*/
         //测试user_id为多少
-       /* value = p.getInt("user_id", 0);*/
+
         Log.e("settingpersonal", value + "");
         init();
         onLisener();
@@ -226,83 +226,7 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
                         .valueOf(System.currentTimeMillis()));
                 Log.e("imagePath", imagePath+"");;
             }
-            /*// 如果返回码是可以用的
-            switch (requestCode) {
-                case TAKE_PICTURE:
-                    //保存到阿里云上
-                    Toast.makeText(this,"baocun",Toast.LENGTH_SHORT).show();
-//                    startPhotoZoom(getImageUri()); // 开始对图片进行裁剪处理
-                    break;
-                case CHOOSE_PICTURE:
-                    //保存到阿里云上
-                    UploadHelper uploadHelper = new UploadHelper();
-                    String uploaduel = uploadHelper.uploadPortrait("/storage/emulated/0/1619079063780.png");
-                    //这个方法会返回OSS上图片的路径
-                    MyLog.e("xxxxyy----testurl:" + uploaduel);
-                    String path = uploaduel;
-                    Log.e("xxx",path);
-                    Toast.makeText(this,"baocun",Toast.LENGTH_SHORT).show();
-                  *//*  Toast.makeText(this,"baocun",Toast.LENGTH_SHORT).show();*//*
-                    *//*startPhotoZoom(data.getData()); // 开始对图片进行裁剪处理*//*
-                    break;
-                case CROP_SMALL_PICTURE:
-                    if (data != null) {
-                        setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
-                    }
-                    //显示图片
-                    break;
-            }*/
-        }
-    }
 
-
-
-
-    protected void startPhotoZoom(Uri uri) {
-        if (uri == null) {
-            Log.i("tag", "The uri is not exist.");
-        }
-        tempUri = uri;
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        // 设置裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CROP_SMALL_PICTURE);
-    }
-    /**
-     * 保存裁剪之后的图片数据
-     *
-     * @param
-     */
-    protected void setImageToView(Intent data) {
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
-            Log.d(TAG,"setImageToView:"+photo);
-            head_image.setImageBitmap(photo);
-            uploadPic(photo);
-        }
-    }
-    private void uploadPic(Bitmap bitmap) {
-        // 上传至服务器
-        // ... 可以在这里把Bitmap转换成file，然后得到file的url，做文件上传操作
-        // 注意这里得到的图片已经是圆形图片了
-        // bitmap是没有做个圆形处理的，但已经被裁剪了
-        imagePath = ImageUtils.savePhoto(bitmap, Environment
-                .getExternalStorageDirectory().getAbsolutePath(), String
-                .valueOf(System.currentTimeMillis()));
-        Log.e("imagePath", imagePath+"");
-        if(imagePath != null){
-            // 拿着imagePath上传了
-            // ...
-            Log.d(TAG,"imagePath:"+imagePath);
         }
     }
 
@@ -369,7 +293,6 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
 
     private void sendMessage() {
         User user=new User(value,new_nickname);
-        /*User user=new User(1,new_nickname);*/
         Gson gson = new Gson();
         String client = gson.toJson(user);
         Log.e("login验证",client);
@@ -412,8 +335,8 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
             case R.id.update_qx:
                 mPopWindow.dismiss();
                 break;
-            case R.id.update_qd:
-                /*new_nickname=mPopWindow.update_nickname.getText().toString();*/
+            /*case R.id.update_qd:
+                *//*new_nickname=mPopWindow.update_nickname.getText().toString();*//*
                 Log.e("update_nickname",new_nickname);
                 Log.e("y用户昵称",new_nickname);
                 if (new_nickname==null){
@@ -421,7 +344,7 @@ public class SettingPersonal extends AppCompatActivity implements View.OnClickLi
                 }else {
                     Log.e("y用户昵称",new_nickname);
                 }
-                break;
+                break;*/
         }
 
 
