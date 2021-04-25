@@ -32,4 +32,8 @@
     <color name="account_pressed_true">#14b94d</color>
     <color name="tab_bgcolor">#eeeeee</color>
     <color name="mainColor">#4dc445</color>
+    <!-- 绿色 -->
+    <color name="green">#008000</color>
+    <!-- 酸橙色 -->
+    <color name="mediumspringgreen">#00FA9A</color>
 </resources>
