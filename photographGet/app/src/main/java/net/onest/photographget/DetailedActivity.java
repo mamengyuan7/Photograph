@@ -58,6 +58,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView title;
     private TextView typee;
     private TextView nickName;
+    private TextView allcomm;
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
@@ -68,7 +69,6 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private Picture picture;
     private MultiImageView.OnItemClickListener mOnItemClickListener;
     private Comment comm = new Comment();
-    private Commentt commentt = new Commentt();
     private String name;
     private int picId = 7;
     private int userId = 1;
@@ -120,12 +120,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 Type type=new TypeToken<List<Comment>>(){}.getType();
                 Gson gson=new Gson();
                 listcomm = gson.fromJson(info,type);
-                for(int i = 0;i<listcomm.size();i++){
+                Log.e("hahahhahah",listcomm.get(0).getContent());
+                /*for(int i = 0;i<listcomm.size();i++){
                     getNickName(listcomm.get(i).getUserId());
                     commentt.setName(name+"：");
                     commentt.setContent(listcomm.get(i).getContent());
                     Log.e("aaaa","123123123");
-                }
+                }*/
             }
 
         }
@@ -139,6 +140,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         title = findViewById(R.id.de_title);
         typee = findViewById(R.id.de_type);
         nickName = findViewById(R.id.de_nickname);
+        allcomm = findViewById(R.id.allcomm);
         back = findViewById(R.id.img_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +153,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
         SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
         userId = p.getInt("user_id",0);
+
+        Intent intent = getIntent();
+        picId = intent.getIntExtra("picid",0);
 
         listImg();
 
@@ -180,7 +185,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         //点赞功能
         mGoodView = new GoodView(this);
         initView1();
-        listcomment();
+        allcomm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listcomment();
+            }
+        });
+
         //获取nickname
         getNickName(userId);
     }
@@ -255,6 +266,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
         }else{
             // 生成评论数据
+            Commentt commentt = new Commentt();
             commentt.setName(name+"：");
             commentt.setContent(comment_content.getText().toString());
             comm.setContent(comment_content.getText().toString());

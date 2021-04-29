@@ -16,6 +16,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static net.onest.photographget.MainActivity.urlAdress;
+
 public class QueryInfo {
     private List<Picture> pictures;
     private OkHttpClient okHttpClient=new OkHttpClient();
@@ -27,7 +29,7 @@ public class QueryInfo {
         //1. OkHttpClient对象
         //2. Request对象
         final Request request = new Request.Builder()
-                .url("http://192.168.1.101:8080/PhotographGet/picture/listall")
+                .url(urlAdress+"/PhotographGet/picture/listall")
                 .build();
         //3. Call对象
         Call call = okHttpClient.newCall(request);
@@ -57,7 +59,7 @@ public class QueryInfo {
                 .add("typeId", info)
                 .build();
         final Request request = new Request.Builder()
-                .url("http://192.168.1.101:8080/PhotographGet/picture/typepic?typeId="+info)
+                .url(urlAdress+"/PhotographGet/picture/typepic?typeId="+info)
                 .get()
                 .build();
         //3. Call对象
