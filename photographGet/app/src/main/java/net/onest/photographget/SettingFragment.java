@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -121,7 +123,12 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
                     setting_moto.setText(user.getPers_signature());
                     text_title.setText(user.getNickName());
                     imagePath=user.getHead_portrait();
-                    getPicBitmap(imagePath);
+                    if(imagePath==null){
+                        //默认头像：
+                        Glide.with(view).load("http://savepicturetab.oss-cn-beijing.aliyuncs.com/image/202104/d44662ca3290ab50329a15266fa09a72.jpg").into(headimage);
+                    }
+                    Glide.with(view).load(imagePath).into(headimage);
+                    /*getPicBitmap(imagePath);*/
                     Log.e("测试",user.getNickName());
                     Log.e("测试",user.getPers_signature());
                 }
@@ -129,8 +136,6 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
                     Bitmap bitmap = (Bitmap) msg.obj;
                     headimage.setImageBitmap(bitmap);
                 }
-
-
             }
 
 
