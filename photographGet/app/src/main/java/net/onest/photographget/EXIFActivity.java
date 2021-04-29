@@ -146,6 +146,7 @@ public class EXIFActivity extends AppCompatActivity {
         /*pImage.setImageResource(R.mipmap.wanda);
         getPicBitmap(pictureDetail.getAddress());*/
         brand.setText("品牌："+pictureDetail.getBrand());
+        type.setText("型号："+pictureDetail.getType());
         ptype.setText("光圈："+pictureDetail.getPtype());
         camera_lens.setText("大小："+pictureDetail.getCarmeraLen());
         focal_length.setText("焦距："+pictureDetail.getFocalLength());
