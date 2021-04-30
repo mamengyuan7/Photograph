@@ -17,15 +17,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.AppBarLayout.Behavior;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.youth.banner.listener.OnBannerListener;
+
+import net.onest.photographget.OSS.App;
 import net.onest.photographget.adapter.FragmentAdapter;
 import net.onest.photographget.entity.User;
 
@@ -34,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.Reference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,14 +55,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.RequiresApi;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static net.onest.photographget.LargePic.ERROR;
 import static net.onest.photographget.MainActivity.urlAdress;
 
-public class SettingFragment extends Fragment implements ViewPager.OnPageChangeListener,View.OnClickListener, OnBannerListener {
+public class SettingFragment extends Fragment implements ViewPager.OnPageChangeListener,View.OnClickListener, OnBannerListener{
     private static final String ARG_SHOW_TEXT = "text";
     View view;
     private List<Fragment> list;
@@ -65,6 +81,8 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
     private TextView setting_nickname;
     //个签
     private TextView setting_moto;
+    //背景图
+    private ImageView image_view;
     private int value;
     private LayoutInflater mInflater;
     private TabLayout sliding_tabs;
@@ -73,6 +91,7 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
     private SharedPreferences p;
     private String imagePath;
     private CircleImageView headimage;
+    private String username;
     CollapsingToolbarLayout mCollapsingToolbarLayout;//折叠式标题栏
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -81,6 +100,7 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
         if (getArguments() != null) {
             mContentText = getArguments().getString(ARG_SHOW_TEXT);
         }
+
     }
     public SettingFragment() {
         // Required empty public constructor
@@ -122,6 +142,7 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
                     setting_nickname.setText(user.getNickName());
                     setting_moto.setText(user.getPers_signature());
                     text_title.setText(user.getNickName());
+                    username=user.getNickName();
                     imagePath=user.getHead_portrait();
                     if(imagePath==null){
                         //默认头像：
@@ -149,14 +170,26 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
                 startActivity(intent);
             }
         });
-
+        image_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击图片，进行刷新
+                Toast.makeText(view.getContext(),"点击刷新",Toast.LENGTH_SHORT).show();
+                Glide.with(view).load(imagePath).into(headimage);
+                setting_nickname.setText(username);
+                getFragmentManager();
+                Intent intent = new Intent();
+                MainActivity activity= (MainActivity) getActivity();
+                activity.reLoadFragView();
+            }
+        });
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
        /* 设置折叠时的标题*/
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         /*设置标题是否显示*/
         mCollapsingToolbarLayout.setTitleEnabled(true);
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
-
+        //刷新控件
         return view;
     }
     private void sendMessage() {
@@ -215,8 +248,10 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
         share=view.findViewById(R.id.share);
         setting_nickname=view.findViewById(R.id.setting_nickname);
         setting_moto=view.findViewById(R.id.setting_moto);
+        image_view=view.findViewById(R.id.image_view);
         share.setOnClickListener(this);
     }
+
     private int changeAlpha(int color, float fraction) {
         int red = Color.red(color);
         int green = Color.green(color);
@@ -299,4 +334,6 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
     @Override
     public void onPageScrollStateChanged(int state) {
     }
+
+
 }

@@ -71,6 +71,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //重新加载布局
+    public void reLoadFragView(){
+        /*现将该fragment从fragmentList移除*/
+        mFragmentSparseArray.remove(R.id.wode_tab);
+        mFragmentSparseArray.append(R.id.wode_tab, SettingFragment.newInstance());
+        getSupportFragmentManager().beginTransaction().add(R.id.tabContent,
+                mFragmentSparseArray.get(R.id.wode_tab)).commit();
+    }
+
     private void showPopupWindow() {
         //设置contentView
         View contentView = LayoutInflater.from(MainActivity.this).inflate(R.layout.home_fb, null);
