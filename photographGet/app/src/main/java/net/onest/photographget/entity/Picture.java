@@ -55,6 +55,7 @@ public class Picture {
         this.introduce = introduce;
     }
 
+
     @Override
     public String toString() {
         return "Picture{" +

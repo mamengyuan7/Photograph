@@ -233,7 +233,8 @@ public class SettingFragment extends Fragment implements ViewPager.OnPageChangeL
         sliding_tabs=view.findViewById(R.id.sliding_tabs);
         /* 判断语句*/
         list.add(SettingProtfolio.newInstance());
-        list.add(SettingProtfolio.newInstance());
+        //收藏页面
+        list.add(SettingCollection.newInstance());
         //getchildfragment加载子viewpager？
         viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(),list));
         sliding_tabs.setupWithViewPager(viewPager);

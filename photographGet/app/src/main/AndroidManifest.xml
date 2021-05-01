@@ -80,6 +80,7 @@
         <activity android:name=".uploadPic" />
         <activity android:name=".uploadheadPic"></activity>
         <activity android:name=".SettingProtfolio"/>
+        <activity android:name="SettingCollection"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="kjB4GHHznVrl9RVR5EG8S8tsMEFagt8T" />
