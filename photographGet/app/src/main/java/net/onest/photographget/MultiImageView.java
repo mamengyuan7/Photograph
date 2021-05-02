@@ -205,7 +205,7 @@ public class MultiImageView extends LinearLayout {
 
         imageView.setId(url.hashCode());
         imageView.setOnClickListener(new ImageOnClickListener(position));
-        Glide.with(getContext()).load(url).placeholder(R.drawable.beijing).error(R.drawable.beijing)
+        Glide.with(getContext()).load(url).placeholder(R.drawable.loadpic).error(R.drawable.failed)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate().into(imageView);
 
         if (position == 8 && imagesList.size() > 9) {//最后一张图片显示还有多少图片未显示
