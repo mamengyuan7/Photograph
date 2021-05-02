@@ -162,7 +162,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //登录层、下拉层、其它登录方式层
 /*      mLlLoginLayer = findViewById(R.id.ll_login_layer);
         mLlLoginPull = findViewById(R.id.ll_login_pull);*/
-        mLlLoginOptions = findViewById(R.id.ll_login_options);
+//        mLlLoginOptions = findViewById(R.id.ll_login_options);
         //导航栏+返回按钮
         /*mLayBackBar = findViewById(R.id.ly_retrieve_bar);*/
         mIbNavigationBack = findViewById(R.id.ib_navigation_back);
@@ -196,9 +196,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mBtLoginRegister.setOnClickListener(this);
         mEtLoginPwd.setOnClickListener(this);
         mIvLoginPwdDel.setOnClickListener(this);
-        findViewById(R.id.ib_login_weibo).setOnClickListener(this);
+/*        findViewById(R.id.ib_login_weibo).setOnClickListener(this);
         findViewById(R.id.ib_login_qq).setOnClickListener(this);
-        findViewById(R.id.ib_login_wx).setOnClickListener(this);
+        findViewById(R.id.ib_login_wx).setOnClickListener(this);*/
         //注册其它事件
        /* mLayBackBar.getViewTreeObserver().addOnGlobalLayoutListener(this);
         mEtLoginUsername.setOnFocusChangeListener(this);
@@ -260,7 +260,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     upGlide(height, progress, time);
                 }
                 break;*/
-            case R.id.ib_login_weibo:
+           /* case R.id.ib_login_weibo:
                 weiboLogin();
                 Toast.makeText(Login.this,"zhuanweibo",Toast.LENGTH_SHORT).show();
 
@@ -270,7 +270,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.ib_login_wx:
                 weixinLogin();
-                break;
+                break;*/
             default:
                 break;
         }
