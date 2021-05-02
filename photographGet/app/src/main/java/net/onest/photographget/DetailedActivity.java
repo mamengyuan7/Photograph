@@ -223,9 +223,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         });*/
         //点赞功能
         if(flag==1){
-            collection.setImageResource(R.drawable.collection);
-        }else{
             collection.setImageResource(R.drawable.collection_checked);
+        }else{
+            collection.setImageResource(R.drawable.collection);
         }
         mGoodView = new GoodView(this);
         initView1();
