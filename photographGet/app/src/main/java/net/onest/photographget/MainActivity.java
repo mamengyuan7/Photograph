@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SparseArray<Fragment> mFragmentSparseArray;
     public static String urlAdress="http://192.168.43.65:8080";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

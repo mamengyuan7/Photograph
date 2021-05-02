@@ -139,7 +139,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
-
         //initData();
          //initData();
         //初始化数据
@@ -465,7 +464,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         photo_kinds();
 
     }
-
     ///////初始化数据
     private void initData() {
         Picture picture1=new Picture();
