@@ -2,6 +2,8 @@ package net.onest.photographget;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +35,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -59,6 +62,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView nickName;
     private ImageView collection;
     private TextView allcomm;
+    private ImageView touxiang;
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
@@ -70,8 +74,12 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private MultiImageView.OnItemClickListener mOnItemClickListener;
     private Comment comm = new Comment();
     private String name;
-    private int picId = 7;
-    private int userId = 1;
+    private int picId;
+    private int userId;
+    private int picuser;
+    private String commname;
+    protected static final int ERROR = 2;
+    private TextView commall;
     //判断是否已收藏
     private int collected;
     
@@ -81,8 +89,12 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             if(msg.what == 66){
                 super.handleMessage(msg);
                 name = (String)msg.obj;
-                nickName.setText(name);
-                Log.e("comm",name);
+                nickName.setText(name.split("--")[0]);
+                Log.e("pikaqiu",name.split("--")[0]);
+                Log.e("pikaqiu",name.split("--")[1]);
+                String yy = name.split("--")[1];
+                getPicBitmap(yy);
+//                Log.e("comm",name.split("--")[1]);
             }else if(msg.what == 26){
                 super.handleMessage(msg);
                 String info = (String)msg.obj;
@@ -97,6 +109,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 title.setText(picture.getTitle());
                 typee.setText(picture.getIntroduce());
                 String a = picture.getImgAddress();
+                picuser = picture.getUserId();
+                Log.e("pikaqiu",picuser+"");
+                //获取nickname
+                getNickName(picuser);
                 Log.e("aaaa",a);
                 String[] path = a.split("--");
                 for(int i = 0;i<path.length;i++){
@@ -123,12 +139,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 Gson gson=new Gson();
                 listcomm = gson.fromJson(info,type);
                 Log.e("hahahhahah",listcomm.get(0).getContent());
-                /*for(int i = 0;i<listcomm.size();i++){
+                String all = "";
+                for(int i = 0;i<listcomm.size();i++){
                     getNickName(listcomm.get(i).getUserId());
-                    commentt.setName(name+"：");
-                    commentt.setContent(listcomm.get(i).getContent());
+                    all = all+name.split("--")[0]+"："+listcomm.get(i).getContent()+"\n";
                     Log.e("aaaa","123123123");
-                }*/
+                }
+                commall.setText(all);
             }else if(msg.what==99){
                 super.handleMessage(msg);
                 String info = (String)msg.obj;
@@ -137,6 +154,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 super.handleMessage(msg);
                 String info=(String)msg.obj;
                 Log.e("删除点赞",info);
+            }else if(msg.what == 52){
+                Bitmap bitmap = (Bitmap) msg.obj;
+                touxiang.setImageBitmap(bitmap);
+            }else if (msg.what == 10){
+                super.handleMessage(msg);
+                String a= (String)msg.obj;
+                commname = a.split("--")[0];
             }
 
         }
@@ -147,8 +171,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_detailed);
 
+        commall = findViewById(R.id.commall);
         title = findViewById(R.id.de_title);
         typee = findViewById(R.id.de_type);
+        touxiang = findViewById(R.id.de_touxiang);
         nickName = findViewById(R.id.de_nickname);
         allcomm = findViewById(R.id.allcomm);
         back = findViewById(R.id.img_back);
@@ -211,7 +237,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         });
 
         //获取nickname
-        getNickName(userId);
+        getNickName1(userId);
     }
 
     //点赞点击事件
@@ -349,7 +375,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 im.hideSoftInputFromWindow(comment_content.getWindowToken(), 0);
                 break;
             case R.id.comment_send:
-                sendComment(name);
+                sendComment(commname);
                 break;
             default:
                 break;
@@ -396,6 +422,32 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                     Log.e("pikaqiu","传过来了呢！");
                     Log.e("xx2",info);
                     wrapperMessage(info);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+    private void getNickName1(int userId){
+        String id = String.valueOf(userId);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Log.e("数据是：","");
+                    URL url = new URL(urlAdress+"/PhotographGet/user/getNickname?userId="+id);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.e("pikaqiu","传过来了呢！");
+                    Log.e("xx2",info);
+                    wrapperMessage4(info);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -485,6 +537,54 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         }.start();
     }
 
+    //读取网络图片URL
+    public void getPicBitmap(String path){
+        new Thread() {
+            private HttpURLConnection conn;
+            private Bitmap bitmap;
+            public void run() {
+                // 连接服务器 get 请求 获取图片
+                try {
+                    //创建URL对象
+                    Log.e("ppppp",path);
+                    URL url = new URL(path);
+                    // 根据url 发送 http的请求
+                    conn = (HttpURLConnection) url.openConnection();
+                    // 设置请求的方式
+                    conn.setRequestMethod("GET");
+                    //设置超时时间
+                    conn.setConnectTimeout(5000);
+                    // 得到服务器返回的响应码
+                    int code = conn.getResponseCode();
+                    //请求网络成功后返回码是200
+                    if (code == 200) {
+                        //获取输入流
+                        InputStream is = conn.getInputStream();
+                        //将流转换成Bitmap对象
+                        bitmap = BitmapFactory.decodeStream(is);
+                        //将更改主界面的消息发送给主线程
+                        Message msg = new Message();
+                        msg.what = 52;
+                        msg.obj = bitmap;
+                        handler.sendMessage(msg);
+                    } else {
+                        //返回码不等于200 请求服务器失败
+                        Message msg = new Message();
+                        msg.what = ERROR;
+                        handler.sendMessage(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Message msg = new Message();
+                    msg.what = ERROR;
+                    handler.sendMessage(msg);
+                }
+                //关闭连接
+                conn.disconnect();
+            }
+        }.start();
+    }
+
     private void wrapperMessage3(String info) {
         Message msg = Message.obtain();
         msg.obj = info;
@@ -520,6 +620,12 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         Message msg=Message.obtain();
         msg.obj=info;
         msg.what=88;
+        handler.sendMessage(msg);
+    }
+    private void wrapperMessage4(String info) {
+        Message msg = Message.obtain();
+        msg.obj = info;
+        msg.what = 10;
         handler.sendMessage(msg);
     }
 }
