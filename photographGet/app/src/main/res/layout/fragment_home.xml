@@ -15,13 +15,12 @@
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:visibility="visible"
-            app:srcCompat="@android:drawable/btn_star_big_on"
-            tools:srcCompat="@android:drawable/btn_star_big_on" />
+           android:src="@mipmap/py" />
         <TextView
             android:layout_weight="1"
             android:id="@+id/home_1"

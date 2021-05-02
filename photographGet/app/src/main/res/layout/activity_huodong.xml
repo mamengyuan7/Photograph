@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".huodongactivity">
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:text="征集主题"
+        android:textColor="#101010"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+
+        android:text="五一劳动节“劳动主题”"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:text="征集时间"
+        android:textColor="#171616"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:text="2021年4月1日-5月1日"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="活动流程"
+        android:textColor="#171616"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+
+        android:text="活动征集：在规定时间征集作品\n活动评选：综合质量、人气，选出排名前30个作品，再由总版主和4名人像版主选出活动作品前3名。\n活动公布：活动结束当天公布活动结果。\n"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:text="活动奖项"
+        android:textColor="#151515"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
+        android:text="第一名：国家地理摄影包 1个、专题勋章\n第二名：JBL FLIP ESSENTIAL旗舰经典款蓝牙音箱 1个、专题勋章。\n第三名：思锐（SIRUI）A1005+Y10三脚架 1个、专题勋章。"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="参与方式"
+        android:textColor="#222020"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="进入APP活动页面参与作品上传"
+        android:textSize="18sp" />
+</LinearLayout>

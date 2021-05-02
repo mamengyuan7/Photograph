@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,11 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,23 +38,11 @@ import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.DividerGridItemDecoration;
 import net.onest.photographget.utils.EventBean;
 import net.onest.photographget.utils.QueryInfo;
+
 import org.greenrobot.eventbus.EventBus;
-<<<<<<< HEAD
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-=======
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +58,9 @@ import androidx.viewpager.widget.ViewPager;
 public class HomeFragment extends Fragment implements View.OnClickListener,OnBannerListener {
     View view;
     View view1;
-
+    View view2;
+    View view3;
+    private TextView rw;
     private EventBean eventBean;
     //创建eventBus对象
     private EventBus eventBus;
@@ -129,29 +117,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         }
     };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
+        context=getContext();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         view1=inflater.inflate(R.layout.home_1,container,false);
+        view2=inflater.inflate(R.layout.home_2_item,container,false);
+        view3=inflater.inflate(R.layout.home_3,container,false);
 
-        context=getContext();
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         //listView_h=view1.findViewById(R.id.listview_item);
 
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
-<<<<<<< HEAD
-         //initData();
+        //initData();
         //初始化数据
         pictures=initPicData();
-        initTypePicData("1");
-        initTypePicData("2");
-        initTypePicData("3");
+        fen_pic=initTypePicData("1");
+        ren_pic=initTypePicData("2");
+        dong_pic=initTypePicData("3");
 
 
         return view;
@@ -193,6 +179,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
                 List<Picture> infos=gson.fromJson(res,new TypeToken<List<Picture>>(){}.getType());
                 for (Picture picture:infos){
 //                    Log.e("解析后的数据",teacher.getTeaName());
+                    String a=picture.getImgAddress();
+                    if(a.contains("--")){
+                        String[] path = a.split("--");
+                        picture.setImgAddress(path[0]);
+                    }
                     pictures.add(picture);
                 }
 //                Log.e("测试",""+teachers.size());
@@ -210,6 +201,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
                 // teachers.clear();
                 for (Picture picture:info){
                     Log.e("解析后的数据",picture.getTitle());
+                    String a=picture.getImgAddress();
+                    if(a.contains("--")){
+                        String[] path = a.split("--");
+                        picture.setImgAddress(path[0]);
+                    }
                     fen_pic.add(picture);
                 }
                 //Log.e("测试",""+teachers.size());
@@ -227,6 +223,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
                 // teachers.clear();
                 for (Picture picture:info3){
                     Log.e("解析后的数据",picture.getTitle());
+                    String a=picture.getImgAddress();
+                    if(a.contains("--")){
+                        String[] path = a.split("--");
+                        picture.setImgAddress(path[0]);
+                    }
                     ren_pic.add(picture);
                 }
                 //Log.e("测试",""+teachers.size());
@@ -244,6 +245,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
                 // teachers.clear();
                 for (Picture picture:info4){
                     Log.e("解析后的数据",picture.getTitle());
+                    String a=picture.getImgAddress();
+                    if(a.contains("--")){
+                        String[] path = a.split("--");
+                        picture.setImgAddress(path[0]);
+                    }
                     dong_pic.add(picture);
                 }
                 //Log.e("测试",""+teachers.size());
@@ -263,10 +269,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
     public void onDestroy() {
         super.onDestroy();
         eventBus.unregister(eventBus);
-=======
-
-        return view;
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     }
 
     private void Huodong_init() {
@@ -351,8 +353,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         View view1 = inflater.inflate(R.layout.home_logo,null);
         View view2 = inflater.inflate(R.layout.home_1,null);
-        View view3 = inflater.inflate(R.layout.home_2,null);
+        View view3 = inflater.inflate(R.layout.home_2_item,null);
         View view4 = inflater.inflate(R.layout.home_3,null);
+
+        ImageView img=view2.findViewById(R.id.img_huodong);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(context,huodongactivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        rw=view4.findViewById(R.id.sy);
+        rw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("点击事件","hhhhh");
+                Intent intent=new Intent(context,Test_intent.class);
+
+                startActivity(intent);
+            }
+        });
 
 
         logoLayout=view.findViewById(R.id.img_logo);
@@ -428,82 +452,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         tabSegment=view1.findViewById(R.id.tabSegment);
         viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
-<<<<<<< HEAD
 
 
 
-=======
-        initData();
-        // pictures=initPicData();
-
-
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
         photo_kinds();
 
     }
-    ///////初始化数据
-    private void initData() {
-        Picture picture1=new Picture();
-        picture1.setId(1);
-        picture1.setTitle("风景");
-        picture1.setImgAddress("https://www.hualigs.cn/image/607e889177721.jpg");
-
-        Picture picture2=new Picture();
-        picture2.setId(2);
-        picture2.setTitle("人物");
-        picture2.setImgAddress("https://www.hualigs.cn/image/607e88207d813.jpg");
-
-        Picture picture3=new Picture();
-        picture3.setId(3);
-        picture3.setTitle("宠物");
-        picture3.setImgAddress("https://www.hualigs.cn/image/607e884c3c5a8.jpg");
-
-        Picture picture4=new Picture();
-        picture4.setId(4);
-        picture4.setTitle("风景");
-        picture4.setImgAddress("https://www.hualigs.cn/image/607e888bcddca.jpg");
-
-        Picture picture5=new Picture();
-        picture5.setId(5);
-        picture5.setTitle("人物");
-        picture5.setImgAddress("https://www.hualigs.cn/image/60794a7b19ab4.jpg");
-
-        pictures.add(picture1);
-        pictures.add(picture2);
-        pictures.add(picture3);
-        pictures.add(picture4);
-        pictures.add(picture5);
-
-        fen_pic.add(picture1);
-        fen_pic.add(picture4);
-
-        ren_pic.add(picture2);
-        ren_pic.add(picture5);
-
-        dong_pic.add(picture3);
-
-    }
-
-<<<<<<< HEAD
-=======
-    private List<Picture> initPicData() {
-        List<Picture> pictures=new ArrayList<>();
-        eventBus=EventBus.getDefault();
-        if(!eventBus.isRegistered(HomeFragment.this)) {
-            eventBus.register(HomeFragment.this);
-        }
-        new QueryInfo().getPicInfos();
-        return pictures;
-    }
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
+    
 
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -749,8 +708,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         return rootView;
     }*/
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 675a1a187c6f88ce2031d88cc59841b99552bc9d
 }

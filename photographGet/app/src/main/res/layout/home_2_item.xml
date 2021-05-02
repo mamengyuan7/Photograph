@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+
+            app:srcCompat="@drawable/qmui_icon_tip_new"></ImageView>
+        <TextView
+            android:id="@+id/tv_bdname"
+            android:textColor="@color/white"
+            android:text="新人榜"
+            android:layout_gravity="center_vertical"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:id="@+id/img_n1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_1_item_back"></ImageView>
+        <TextView
+            android:id="@+id/tv_n1"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="张三"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/pm1"
+            android:scaleType="fitXY"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+        </ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_n2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/beijing"></ImageView>
+        <TextView
+            android:id="@+id/tv_n2"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="李四"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/pm2"
+            android:scaleType="fitXY"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+        </ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_n3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/p2"></ImageView>
+        <TextView
+            android:id="@+id/tv_n3"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:text="王五"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_marginLeft="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/pm3"
+            android:scaleType="fitXY"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+        </ImageView>
+    </LinearLayout>
+
+   </LinearLayout>
+</LinearLayout>
