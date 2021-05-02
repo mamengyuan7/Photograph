@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PopupWindow mPopWindow;
     View popupWindowView;
     private SparseArray<Fragment> mFragmentSparseArray;
+<<<<<<< HEAD
     public static String urlAdress="http://192.168.1.102:8080";
+=======
+    public static String urlAdress="http://192.168.43.65:8080";
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                showPopupWindow();
             }
         });
+    }
+
+    //重新加载布局
+    public void reLoadFragView(){
+        /*现将该fragment从fragmentList移除*/
+        mFragmentSparseArray.remove(R.id.wode_tab);
+        mFragmentSparseArray.append(R.id.wode_tab, SettingFragment.newInstance());
+        getSupportFragmentManager().beginTransaction().add(R.id.tabContent,
+                mFragmentSparseArray.get(R.id.wode_tab)).commit();
     }
 
     private void showPopupWindow() {

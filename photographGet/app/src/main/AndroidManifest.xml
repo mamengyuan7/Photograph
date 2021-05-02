@@ -48,7 +48,13 @@
         <activity android:name=".LargePic" />
         <activity android:name=".utils.ResetPwd" />
         <activity android:name=".uploadPic" />
+<<<<<<< HEAD
         <activity android:name=".uploadheadPic" />
+=======
+        <activity android:name=".uploadheadPic"></activity>
+        <activity android:name=".SettingProtfolio"/>
+        <activity android:name="SettingCollection"/>
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="kjB4GHHznVrl9RVR5EG8S8tsMEFagt8T" />

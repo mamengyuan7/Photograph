@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,10 @@ public class uploadPic extends AppCompatActivity {
     private EditText name;
     private EditText introduce;
     private Picture picture;
+    private Button btn1;
+    private Button btn2;
+    private Button btn3;
+    private Button btn4;
     private ArrayList<String> images = new ArrayList<>();
     private int n;
     private PictureDetail pictureDetail = new PictureDetail();
@@ -101,6 +106,34 @@ public class uploadPic extends AppCompatActivity {
         putin = findViewById(R.id.put);
         name = findViewById(R.id.p_name);
         introduce = findViewById(R.id.p_jianjie);
+        btn1 = findViewById(R.id.scene);
+        btn2=findViewById(R.id.people);
+        btn3=findViewById(R.id.animal);
+        btn4=findViewById(R.id.food);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_green_bg));
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_green_bg));
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_green_bg));
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_green_bg));
+            }
+        });
         findnum();
         back.setOnClickListener(new View.OnClickListener() {
             @Override

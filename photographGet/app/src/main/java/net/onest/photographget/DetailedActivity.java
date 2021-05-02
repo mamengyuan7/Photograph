@@ -1,11 +1,9 @@
 package net.onest.photographget;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -19,12 +17,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wx.goodview.GoodView;
 
 import net.onest.photographget.adapter.AdapterComment;
+import net.onest.photographget.entity.Collection;
 import net.onest.photographget.entity.Comment;
 import net.onest.photographget.entity.Picture;
 import net.onest.photographget.model.Commentt;
@@ -49,6 +47,7 @@ import static net.onest.photographget.MainActivity.urlAdress;
 
 public class DetailedActivity extends AppCompatActivity implements View.OnClickListener {
     private MultiImageView multiImageView;
+    public static int flag = 0;
     private GoodView mGoodView;
     private ImageView comment;
     private TextView hide_down;
@@ -58,6 +57,8 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView title;
     private TextView typee;
     private TextView nickName;
+    private ImageView collection;
+    private TextView allcomm;
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
     private ListView comment_list;
@@ -68,10 +69,11 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private Picture picture;
     private MultiImageView.OnItemClickListener mOnItemClickListener;
     private Comment comm = new Comment();
-    private Commentt commentt = new Commentt();
     private String name;
     private int picId = 7;
     private int userId = 1;
+    //判断是否已收藏
+    private int collected;
     
     private Handler handler = new Handler(){
         @Override
@@ -120,12 +122,21 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 Type type=new TypeToken<List<Comment>>(){}.getType();
                 Gson gson=new Gson();
                 listcomm = gson.fromJson(info,type);
-                for(int i = 0;i<listcomm.size();i++){
+                Log.e("hahahhahah",listcomm.get(0).getContent());
+                /*for(int i = 0;i<listcomm.size();i++){
                     getNickName(listcomm.get(i).getUserId());
                     commentt.setName(name+"：");
                     commentt.setContent(listcomm.get(i).getContent());
                     Log.e("aaaa","123123123");
-                }
+                }*/
+            }else if(msg.what==99){
+                super.handleMessage(msg);
+                String info = (String)msg.obj;
+                Log.e("点赞",info);
+            }else if(msg.what==88){
+                super.handleMessage(msg);
+                String info=(String)msg.obj;
+                Log.e("删除点赞",info);
             }
 
         }
@@ -139,7 +150,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         title = findViewById(R.id.de_title);
         typee = findViewById(R.id.de_type);
         nickName = findViewById(R.id.de_nickname);
+        allcomm = findViewById(R.id.allcomm);
         back = findViewById(R.id.img_back);
+        collection=findViewById(R.id.collection);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +164,11 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
         SharedPreferences p=getSharedPreferences("user",MODE_PRIVATE);
         userId = p.getInt("user_id",0);
+
+        Intent intent = getIntent();
+        picId = intent.getIntExtra("picid",0);
+        //收到？
+       /* collected=*/
 
         listImg();
 
@@ -178,17 +196,106 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             }
         });*/
         //点赞功能
+        if(flag==1){
+            collection.setImageResource(R.drawable.collection);
+        }else{
+            collection.setImageResource(R.drawable.collection_checked);
+        }
         mGoodView = new GoodView(this);
         initView1();
-        listcomment();
+        allcomm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listcomment();
+            }
+        });
+
         //获取nickname
         getNickName(userId);
     }
+
     //点赞点击事件
     public void collection(View view) {
-        ((ImageView) view).setImageResource(R.drawable.collection_checked);
-        mGoodView.setTextInfo("收藏成功", Color.parseColor("#f66467"), 12);
-        mGoodView.show(view);
+        if(flag == 0){
+            ((ImageView) view).setImageResource(R.drawable.collection_checked);
+            mGoodView.setTextInfo("收藏成功", Color.parseColor("#f66467"), 12);
+            mGoodView.show(view);
+            flag=1;
+            Toast.makeText(this,"收藏成功"+picId+userId,Toast.LENGTH_SHORT).show();
+            //userid
+            //将收藏加入数据库
+            addCollection();
+
+        }else{
+            ((ImageView) view).setImageResource(R.drawable.collection);
+            mGoodView.setTextInfo("取消收藏", Color.parseColor("#f66467"), 12);
+            mGoodView.show(view);
+            flag=0;
+            Toast.makeText(this,"现在取消收藏"+picId+userId,Toast.LENGTH_SHORT).show();
+            //在数据库中删除收藏
+            delCollection();
+        }
+
+    }
+
+    private void delCollection() {
+
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    //没改
+                    URL url = new URL(urlAdress+"/PhotographGet/collection/delCol?picId=" + picId);
+                    Log.e("发送完数据啦","OK");
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    Log.i("检测","得到"+info);
+                    if(null!=info) {
+                        Log.e("ww", info);
+                        wrapperMessage8(info);
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    private void addCollection() {
+        Collection collection=new Collection(picId,userId);
+        Gson gson = new Gson();
+        String client = gson.toJson(collection);
+        Log.e("点赞验证",client);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlAdress+"/PhotographGet/collection/addCol?client=" + client);
+                    URLConnection conn = url.openConnection();
+                    InputStream in = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String info = reader.readLine();
+                    if(null!=info) {
+                        Log.e("ww", info);
+                        wrapperMessage9(info);
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
     }
     private void initView1() {
 
@@ -255,6 +362,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
         }else{
             // 生成评论数据
+            Commentt commentt = new Commentt();
             commentt.setName(name+"：");
             commentt.setContent(comment_content.getText().toString());
             comm.setContent(comment_content.getText().toString());
@@ -269,7 +377,6 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "评论成功！", Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
@@ -352,7 +459,6 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             }
         }.start();
     }
-
     private void listcomment(){
         new Thread(){
             @Override
@@ -385,7 +491,6 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         msg.what = 62;
         handler.sendMessage(msg);
     }
-
     private void wrapperMessage(String info) {
         Message msg = Message.obtain();
         msg.obj = info;
@@ -402,6 +507,19 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         Message msg = Message.obtain();
         msg.obj = info;
         msg.what = 51;
+        handler.sendMessage(msg);
+    }
+    private void wrapperMessage9(String info) {
+        Message msg=Message.obtain();
+        msg.obj=info;
+        msg.what=99;
+        handler.sendMessage(msg);
+
+    }
+    private void wrapperMessage8(String info) {
+        Message msg=Message.obtain();
+        msg.obj=info;
+        msg.what=88;
         handler.sendMessage(msg);
     }
 }

@@ -16,13 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import net.onest.photographget.entity.User;
 import net.onest.photographget.utils.ResetPwd;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +36,6 @@ import static net.onest.photographget.MainActivity.urlAdress;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "ifu25";
-
     //返回按钮
     private ImageButton mIbNavigationBack;
     private LinearLayout mLlLoginPull;

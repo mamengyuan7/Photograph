@@ -42,7 +42,20 @@ import net.onest.photographget.utils.QueryInfo;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+<<<<<<< HEAD
 
+=======
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.sql.SQLTransactionRollbackException;
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,8 +129,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             }
         }
     };
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         context=getContext();
@@ -132,7 +148,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
+<<<<<<< HEAD
         //initData();
+=======
+         //initData();
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
         //初始化数据
         pictures=initPicData();
         fen_pic=initTypePicData("1");
@@ -143,7 +163,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         return view;
     }
 
-    private List<Picture> initPicData() {
+    private List<Picture> initPicData1() {
         List<Picture> pictures=new ArrayList<>();
         eventBus=EventBus.getDefault();
         if(!eventBus.isRegistered(HomeFragment.this)) {
@@ -452,6 +472,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         tabSegment=view1.findViewById(R.id.tabSegment);
         viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
+<<<<<<< HEAD
 
 
 
@@ -463,6 +484,64 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
 
 
+=======
+        initData();
+        // pictures=initPicData()
+        photo_kinds();
+
+    }
+    ///////初始化数据
+    private void initData() {
+        Picture picture1=new Picture();
+        picture1.setId(1);
+        picture1.setTitle("风景");
+        picture1.setImgAddress("https://www.hualigs.cn/image/607e889177721.jpg");
+
+        Picture picture2=new Picture();
+        picture2.setId(2);
+        picture2.setTitle("人物");
+        picture2.setImgAddress("https://www.hualigs.cn/image/607e88207d813.jpg");
+
+        Picture picture3=new Picture();
+        picture3.setId(3);
+        picture3.setTitle("宠物");
+        picture3.setImgAddress("https://www.hualigs.cn/image/607e884c3c5a8.jpg");
+
+        Picture picture4=new Picture();
+        picture4.setId(4);
+        picture4.setTitle("风景");
+        picture4.setImgAddress("https://www.hualigs.cn/image/607e888bcddca.jpg");
+
+        Picture picture5=new Picture();
+        picture5.setId(5);
+        picture5.setTitle("人物");
+        picture5.setImgAddress("https://www.hualigs.cn/image/60794a7b19ab4.jpg");
+
+        pictures.add(picture1);
+        pictures.add(picture2);
+        pictures.add(picture3);
+        pictures.add(picture4);
+        pictures.add(picture5);
+
+        fen_pic.add(picture1);
+        fen_pic.add(picture4);
+
+        ren_pic.add(picture2);
+        ren_pic.add(picture5);
+
+        dong_pic.add(picture3);
+
+    }
+    private List<Picture> initPicData() {
+        List<Picture> pictures=new ArrayList<>();
+        eventBus=EventBus.getDefault();
+        if(!eventBus.isRegistered(HomeFragment.this)) {
+            eventBus.register(HomeFragment.this);
+        }
+        new QueryInfo().getPicInfos();
+        return pictures;
+    }
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -707,6 +786,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         contentTv.setText(mContentText);
         return rootView;
     }*/
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 }

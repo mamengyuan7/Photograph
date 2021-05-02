@@ -75,4 +75,58 @@
         android:textSize="14dp"
         android:theme="@style/MyEditText"
         android:textColorHint="#DDDDDD"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/p_jianjie"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择分类"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <Button
+                android:id="@+id/scene"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_transparent_bg"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:text="风景"/>
+            <Button
+                android:id="@+id/people"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_transparent_bg"
+                android:layout_toRightOf="@+id/scene"
+                android:text="人像"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"/>
+            <Button
+                android:id="@+id/animal"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/people"
+                android:background="@drawable/shape_transparent_bg"
+                android:text="动物"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"/>
+            <Button
+                android:id="@+id/food"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/animal"
+                android:background="@drawable/shape_transparent_bg"
+                android:text="食物"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

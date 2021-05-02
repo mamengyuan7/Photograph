@@ -68,7 +68,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/cardview_dark_background">
         <TextView
@@ -76,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="开往雪国的列车"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/white"
             android:textSize="18sp"/>
         <ImageView
@@ -85,6 +85,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="collection"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/collection"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20sp"/>
@@ -94,10 +95,31 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/de_title"
             android:text="dshakjfdn "
+            android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/list_item_background_pressed"/>
-
+        <TextView
+            android:id="@+id/pinglun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/de_type"
+            android:text="评论:"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/Green"/>
+        <TextView
+            android:id="@+id/allcomm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/de_type"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="13dp"
+            android:textColor="@color/Green"
+            android:layout_marginLeft="5dp"
+            android:text="展示全部评论"
+            android:layout_alignParentRight="true"
+            android:textStyle="italic"/>
     </RelativeLayout>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

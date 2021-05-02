@@ -21,6 +21,9 @@ public class User {
         this.id=id;
         this.nickName=nickName;
     }
+//    public User(int id,String head_portrait){
+//
+//    }
 
     public int getId() {
         return id;
