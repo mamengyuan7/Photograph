@@ -107,10 +107,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'com.google.android.material:material:1.0.0'
-<<<<<<< HEAD
-=======
 
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     implementation project(path: ':imageselector')
@@ -127,9 +124,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okio:okio:1.9.0'
     implementation 'commons-codec:commons-codec:1.9'
-<<<<<<< HEAD
-
-=======
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 
 }

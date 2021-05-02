@@ -42,9 +42,6 @@ import net.onest.photographget.utils.QueryInfo;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-<<<<<<< HEAD
-
-=======
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +52,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.SQLTransactionRollbackException;
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,11 +125,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
             }
         }
     };
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("test", "初始化首页");
         context=getContext();
@@ -148,11 +139,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         System.out.println("这是viewpage对象："+viewPager);
         initView();
         // Huodong_init();
-<<<<<<< HEAD
+
         //initData();
-=======
          //initData();
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
         //初始化数据
         pictures=initPicData();
         fen_pic=initTypePicData("1");
@@ -472,24 +461,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
 
         tabSegment=view1.findViewById(R.id.tabSegment);
         viewpager_showphoto=view1.findViewById(R.id.viewpager_showphoto);
-<<<<<<< HEAD
-
-
 
         photo_kinds();
 
     }
-    
 
-
-
-
-=======
-        initData();
-        // pictures=initPicData()
-        photo_kinds();
-
-    }
     ///////初始化数据
     private void initData() {
         Picture picture1=new Picture();
@@ -541,7 +517,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         new QueryInfo().getPicInfos();
         return pictures;
     }
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
     private void photo_kinds() {
         viewpager_showphoto.setAdapter(new PagerAdapter() {
             @Override
@@ -786,9 +761,4 @@ public class HomeFragment extends Fragment implements View.OnClickListener,OnBan
         contentTv.setText(mContentText);
         return rootView;
     }*/
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 41fe674853563e93eb3c2eddea70c85f28916519
 }
